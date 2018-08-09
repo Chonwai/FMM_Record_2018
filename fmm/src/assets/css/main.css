@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Bree Serif', serif;
+}
+
+@keyframes shakeOnce {
+  from {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(12px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+:root {
+  --turquoise: #1abc9c;
+  --greensea: #16a085;
+  --peterriver: #3498db;
+  --nephrisit: #27ae60;
+  --belizehole: #2980b9;
+  --white: #FFFFFF;
+  --black: #000000;
+  --midnightblue: #2c3e50;
+  --sunflower: #f1c40f;
+  --wisteria: #8e44ad;
+  --transparent: transparent;
+  --leftBar: 300px;
+  --smallBorderRadius: 3px;
+  --mediumBorderRadius: 5px;
+  --bigBorderRadius: 7px;
+  --largeBorderRadius: 10px;
+  --footerHeight: 48px;
+}
+
+body {
+  margin: 0px;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+.font-size-12 {
+  font-size: 12px;
+}
+
+.font-size-14 {
+  font-size: 14px;
+}
+
+.font-size-18 {
+  font-size: 18px;
+}
+
+.font-size-24 {
+  font-size: 24px;
+}
+
+.title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  color: var(--midnightblue);
+}

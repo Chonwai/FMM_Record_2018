@@ -1,0 +1,38 @@
+{
+  "projectList": [{
+      "projectName": "newRecord",
+      "projectTitle": "新增表單",
+      "iconPath": "static/images/newspaper.svg"
+    },
+    {
+      "projectName": "updateRecord",
+      "projectTitle": "更新表單",
+      "iconPath": "static/images/document.svg"
+    },
+    {
+      "projectName": "printRecord",
+      "projectTitle": "表單列印",
+      "iconPath": "static/images/typewriter.svg"
+    },
+    {
+      "projectName": "searchRecord",
+      "projectTitle": "查找記錄",
+      "iconPath": "static/images/search.svg"
+    },
+    {
+      "projectName": "newAssets",
+      "projectTitle": "新增設備資料",
+      "iconPath": "static/images/link.svg"
+    },
+    {
+      "projectName": "editAssets",
+      "projectTitle": "修改設備資料",
+      "iconPath": "static/images/school-material.svg"
+    },
+    {
+      "projectName": "aboutSystem",
+      "projectTitle": "關於",
+      "iconPath": "static/images/chat.svg"
+    }
+  ]
+}
