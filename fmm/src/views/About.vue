@@ -9,15 +9,19 @@
 
 <script>
 export default {
-  name: 'About',
-  data(): {
-    return {
-
-    }
-  }
+  name: 'About'
 }
 </script>
 
 <style>
-
+.about-container {
+  min-height: calc(100vh - var(--footerHeight));
+  width: auto;
+  margin-left: var(--leftBar);
+  padding: 36px;
+  background-image: url("../../static/images/pexels-photo-1037995.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>

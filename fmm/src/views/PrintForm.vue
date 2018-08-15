@@ -1,7 +1,7 @@
 <template>
-<div class="new-record-container">
+<div class="print-form-container">
   <div class="title">
-    <h1>新增表單</h1>
+    <h1>表單列印</h1>
   </div>
 </div>
 </template>
@@ -11,7 +11,7 @@
 </script>
 
 <style scoped>
-.new-record-container {
+.print-form-container {
   min-height: calc(100vh - var(--footerHeight));
   width: auto;
   margin-left: var(--leftBar);

@@ -15,6 +15,36 @@ export default new Router({
       path: '/newRecord',
       name: 'newRecord',
       component: () => import('@/views/NewRecord.vue')
+    },
+    {
+      path: '/updateRecord',
+      name: 'updateRecord',
+      component: () => import('@/views/UpdateRecord.vue')
+    },
+    {
+      path: '/printForm',
+      name: 'printForm',
+      component: () => import('@/views/PrintForm.vue')
+    },
+    {
+      path: '/searchRecord',
+      name: 'searchRecord',
+      component: () => import('@/views/SearchRecord.vue')
+    },
+    {
+      path: '/newAssets',
+      name: 'newAssets',
+      component: () => import('@/views/NewAssets.vue')
+    },
+    {
+      path: '/editAssets',
+      name: 'editAssets',
+      component: () => import('@/views/EditAssets.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/About.vue')
     }
   ]
 })

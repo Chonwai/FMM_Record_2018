@@ -1,7 +1,7 @@
 <template>
-<div class="new-record-container">
+<div class="update-record-container">
   <div class="title">
-    <h1>新增表單</h1>
+    <h1>更新表單</h1>
   </div>
 </div>
 </template>
@@ -11,7 +11,7 @@
 </script>
 
 <style scoped>
-.new-record-container {
+.update-record-container {
   min-height: calc(100vh - var(--footerHeight));
   width: auto;
   margin-left: var(--leftBar);

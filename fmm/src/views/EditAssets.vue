@@ -1,7 +1,7 @@
 <template>
-<div class="new-record-container">
+<div class="edit-assets-container">
   <div class="title">
-    <h1>新增表單</h1>
+    <h1>修改設備資料</h1>
   </div>
 </div>
 </template>
@@ -11,7 +11,7 @@
 </script>
 
 <style scoped>
-.new-record-container {
+.edit-assets-container {
   min-height: calc(100vh - var(--footerHeight));
   width: auto;
   margin-left: var(--leftBar);

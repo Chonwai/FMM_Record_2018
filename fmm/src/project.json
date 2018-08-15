@@ -10,7 +10,7 @@
       "iconPath": "static/images/document.svg"
     },
     {
-      "projectName": "printRecord",
+      "projectName": "printForm",
       "projectTitle": "表單列印",
       "iconPath": "static/images/typewriter.svg"
     },
@@ -30,7 +30,7 @@
       "iconPath": "static/images/school-material.svg"
     },
     {
-      "projectName": "aboutSystem",
+      "projectName": "about",
       "projectTitle": "關於",
       "iconPath": "static/images/chat.svg"
     }
