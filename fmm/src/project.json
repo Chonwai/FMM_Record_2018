@@ -1,5 +1,10 @@
 {
   "projectList": [{
+      "projectName": "homePage",
+      "projectTitle": "首頁",
+      "iconPath": "static/images/newspaper.svg"
+    },
+    {
       "projectName": "newRecord",
       "projectTitle": "新增表單",
       "iconPath": "static/images/newspaper.svg"
