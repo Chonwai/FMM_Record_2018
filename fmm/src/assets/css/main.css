@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Bree Serif', serif;
+  outline: none;
 }
 
 @keyframes shakeOnce {
@@ -12,6 +13,27 @@
   }
   to {
     transform: translateX(0px);
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes bigbang {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
   }
 }
 
@@ -77,6 +99,7 @@ textarea {
 .form-input {
   min-width: 400px;
   width: 80%;
+  height: auto;
   font-size: 18px;
   background-color: var(--transparent);
   color: var(--greensea);
@@ -84,6 +107,10 @@ textarea {
   margin: 12px;
   border-radius: var(--mediumBorderRadius);
   border: 3px solid var(--turquoise);
+}
+
+.submit-btn {
+  cursor: pointer;
 }
 
 .item-form {
@@ -100,11 +127,30 @@ textarea {
   align-items: center;
 }
 
-.input-embed-input {
+.input-embed-input-container {
   display: flex;
   flex: 1;
+  flex-direction: row;
   justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.input-embed-input {
   border: none;
   font-size: 100%;
   color: inherit;
+}
+
+.swal-modal {
+  background-color: var(--white);
+  border: 3px solid var(--turquoise);
+  border-radius: var(--bigBorderRadius);
+}
+
+.swal-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.swal-button {
+  background-color: var(--turquoise);
 }

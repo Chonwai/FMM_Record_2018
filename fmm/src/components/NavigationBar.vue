@@ -25,11 +25,16 @@ export default {
 </script>
 
 <style scoped>
+::-webkit-scrollbar {
+display: none;
+}
+
 .left-bar-container {
   position: fixed;
   height: 100vh;
   width: var(--leftBar);
   background-color: var(--turquoise);
+  overflow: scroll;
 }
 
 .icon-container {
@@ -42,7 +47,7 @@ export default {
 .icon {
   height: 100px;
   width: 100px;
-  background-image: url('../../static/images/joker.svg');
+  background-image: url('../../static/images/strategy.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -35,6 +35,21 @@
       "iconPath": "static/images/school-material.svg"
     },
     {
+      "projectName": "addNewUser",
+      "projectTitle": "新增用戶",
+      "iconPath": "static/images/add-user.svg"
+    },
+    {
+      "projectName": "internalUser",
+      "projectTitle": "內部用戶",
+      "iconPath": "static/images/relations.svg"
+    },
+    {
+      "projectName": "externalUser",
+      "projectTitle": "外部用戶",
+      "iconPath": "static/images/relationship.svg"
+    },
+    {
       "projectName": "about",
       "projectTitle": "關於",
       "iconPath": "static/images/chat.svg"

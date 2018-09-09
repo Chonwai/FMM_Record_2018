@@ -26,6 +26,51 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (min-width: 1280px) {
+  .card {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 16.66%;
+    height: auto;
+    padding: 36px;
+    border: 3px solid var(--transparent);
+    border-radius: var(--bigBorderRadius);
+    transition: 0.3s;
+    transform: translateZ(0px);
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .card {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 25%;
+    height: auto;
+    padding: 36px;
+    border: 3px solid var(--transparent);
+    border-radius: var(--bigBorderRadius);
+    transition: 0.3s;
+    transform: translateZ(0px);
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .card {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+    height: auto;
+    padding: 36px;
+    border: 3px solid var(--transparent);
+    border-radius: var(--bigBorderRadius);
+    transition: 0.3s;
+    transform: translateZ(0px);
+    text-decoration: none;
+  }
+}
+
 .homepage-container {
   min-height: calc(100vh - var(--footerHeight));
   width: auto;
@@ -41,26 +86,13 @@ export default {
   flex-wrap: wrap;
   height: 100%;
   width: 100%;
-  padding: 24px;
-}
-
-.card {
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 25%;
-  height: auto;
-  padding: 36px;
-  border: 3px solid var(--transparent);
-  border-radius: var(--bigBorderRadius);
-  transition: 0.3s;
-  transform: translateZ(0px);
-  text-decoration: none;
+  padding: 48px;
 }
 
 .card:hover {
-  border: 3px solid var(--turquoise);
-  transform: scale(1.1);
-  box-shadow: 7px 7px 0px 0px grey;
+  /* border: 3px solid var(--turquoise); */
+  transform: scale(1.3);
+  /* box-shadow: 7px 7px 0px 0px grey; */
   transition: 0.3s;
   cursor: pointer;
 }

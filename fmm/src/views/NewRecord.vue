@@ -4,13 +4,29 @@
     <h1>新增表單</h1>
   </div>
   <div class="new-record-form-container">
-    <input class="form-input" placeholder="表單編號：" />
-    <input class="form-input" placeholder="領取人：" />
-    <input class="form-input" placeholder="日期：" />
-    <input class="form-input" placeholder="職員/學生證號碼：" />
-    <input class="form-input" placeholder="部門：" />
-    <input class="form-input" placeholder="預期歸還：" />
-    <input class="form-input" placeholder="電話：" />
+    <div class="form-input input-item-title">
+      <label>表單編號：</label>
+      <div class="input-embed-input-container">
+        <span class="input-embed-input">FMM{{ recordNumber }}</span>
+      </div>
+    </div>
+    <input class="form-input" placeholder="領取人：" v-model="name"/>
+    <div class="form-input input-item-title">
+      <label>日期：</label>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" type="date" v-model="date"/>
+      </div>
+    </div>
+    <input class="form-input" placeholder="職員/學生證號碼：" v-model="staffNumber"/>
+    <input class="form-input" placeholder="部門：" v-model="department"/>
+    <!-- <input class="form-input" placeholder="預期歸還：" v-model="dateOfReturn"/> -->
+    <div class="form-input input-item-title">
+      <label>預期歸還：</label>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" type="date" v-model="dateOfReturn"/>
+      </div>
+    </div>
+    <input class="form-input" placeholder="電話：" v-model="contact"/>
     <div class="form-input input-item-title">
       <label>項目數量：</label>
       <div class="item-amount">
@@ -21,27 +37,46 @@
     </div>
     <div class="form-input item-form" v-for="item in itemAmount" :key="item.key">
       <label class="item-title">項目：{{ item }}</label>
-      <input class="form-input" placeholder="器材名稱及型號：" v-model="assetsModel[item - 1]"/>
-      <input class="form-input" placeholder="器材財產編號：" v-model="assetsNo[item - 1]"/>
-      <input class="form-input" placeholder="用途及使用地點：" v-model="useLoctaion[item - 1]"/>
-      <input class="form-input" placeholder="還件人：" v-model="returnName[item - 1]"/>
+      <input class="form-input" placeholder="器材名稱及型號：" v-model="assetsModel[item - 1]" />
+      <input class="form-input" placeholder="器材財產編號：" v-model="assetsNo[item - 1]" />
+      <input class="form-input" placeholder="用途及使用地點：" v-model="useLoctaion[item - 1]" />
+      <input class="form-input" placeholder="還件人：" v-model="returnName[item - 1]" />
       <div class="form-input input-item-title">
         <label>還件日期：</label>
-        <input class="input-embed-input" type="date" v-model="returnDate[item - 1]"/>
+        <input class="input-embed-input" type="date" v-model="returnDate[item - 1]" />
       </div>
     </div>
     <textarea class="form-input" placeholder="備註：" v-model="remark" />
-    <input class="form-input" placeholder="交件人：" />
+    <input class="form-input" placeholder="交件人：" v-model="deliveryPerson"/>
     <div class="form-input input-item-title">
       <label>交件日期：</label>
-      <input class="input-embed-input" type="date"/>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" type="date" v-model="deliveryDate"/>
+      </div>
     </div>
-    <input class="form-input" placeholder="收件人：" />
+    <input class="form-input" placeholder="收件人：" v-model="receiver"/>
     <div class="form-input input-item-title">
       <label>收件日期：</label>
-      <input class="input-embed-input" type="date"/>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" type="date" v-model="receivedDate"/>
+      </div>
     </div>
-    <button class="form-input" @click="submit()">新增</button>
+    <div class="form-input input-item-title">
+      <label>已還：</label>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" type="checkbox" v-model="isReturn"/>
+      </div>
+    </div>
+    <div class="form-input input-item-title">
+      <label>借出範圍：</label>
+      <div class="input-embed-input-container">
+        <label>內部：</label>
+        <input class="input-embed-input" type="radio" value="internal" v-model="in_ex"/>
+        <label>外部：</label>
+        <input class="input-embed-input" type="radio" value="external" v-model="in_ex"/>
+      </div>
+    </div>
+    <button class="form-input submit-btn" @click="submit()">新增</button>
   </div>
 </div>
 </template>
@@ -50,18 +85,39 @@
 export default {
   data() {
     return {
+      newRecordApi: "http://localhost:8888/index.php/api/record/new",
+      getLastRecordNumberApi: "http://localhost:8888/index.php/api/record/last",
+      recordNumber: 0,
+      name: "",
+      date: "",
+      staffNumber: "",
+      department: "",
+      dateOfReturn: "",
+      contact: "",
       itemAmount: 0,
       assetsModel: [],
       assetsNo: [],
       useLoctaion: [],
       returnName: [],
       returnDate: [],
-      remark: ""
+      remark: "",
+      deliveryPerson: "",
+      deliveryDate: "",
+      receiver: "",
+      receivedDate: "",
+      isReturn: false,
+      in_ex: ""
     }
   },
   methods: {
     addOne() {
       this.itemAmount += 1;
+      if (this.itemAmount > 10) {
+        this.itemAmount = 10;
+        swal("最多只能填寫十項！", {
+          icon: "error"
+        });
+      }
     },
     dropOne() {
       this.itemAmount -= 1;
@@ -69,12 +125,44 @@ export default {
         this.itemAmount = 0;
       }
     },
+    findLastRecordNumber() {
+      this.$http.get(this.getLastRecordNumberApi)
+        .then((response) => {
+          console.log(response.data);
+          this.recordNumber = response.data.recordNumber;
+        })
+    },
     submit() {
-      console.log(this.assetsModel, this.assetsNo, this.useLoctaion, this.returnName, this.returnDate);
+      // console.log(this.name, this.date, this.staffNumber, this.assetsModel, this.assetsNo, this.useLoctaion, this.returnName, this.returnDate, this.isReturn);
+      this.$http.post(this.newRecordApi, JSON.stringify({
+        "name": this.name,
+        "date": this.date,
+        "staffNumber": this.staffNumber,
+        "department": this.department,
+        "dateOfReturn": this.dateOfReturn,
+        "contact": this.contact,
+        "itemAmount": this.itemAmount,
+        "assetsModel": this.assetsModel,
+        "assetsNo": this.assetsNo,
+        "useLoctaion": this.useLoctaion,
+        "returnName": this.returnName,
+        "returnDate": this.returnDate,
+        "remark": this.remark,
+        "deliveryPerson": this.deliveryPerson,
+        "deliveryDate": this.deliveryDate,
+        "receiver": this.receiver,
+        "receivedDate": this.receivedDate,
+        "isReturn": this.isReturn,
+        "in_ex": this.in_ex
+      }))
+      .then((response) => {
+        console.log(response.data);
+      })
     }
   },
   created() {
     this.itemAmount = 0;
+    this.findLastRecordNumber();
   }
 }
 </script>
@@ -94,6 +182,10 @@ export default {
 h1 {
   margin: 0px;
 }
+
+/* select {
+  padding: 8px;
+} */
 
 .new-record-form-container {
   height: auto;
@@ -130,5 +222,10 @@ h1 {
 .show-amount {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.input-embed-input-container {
+  display: flex;
+  align-items: center;
 }
 </style>
