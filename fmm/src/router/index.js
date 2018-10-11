@@ -42,9 +42,19 @@ export default new Router({
       component: () => import('@/views/EditAssets.vue')
     },
     {
+      path: '/addNewUser',
+      name: 'addNewUser',
+      component: () => import('@/views/AddNewUser.vue')
+    },
+    {
       path: '/internalUser',
       name: 'internalUser',
       component: () => import('@/views/InternalUser.vue')
+    },
+    {
+      path: '/externalUser',
+      name: 'externalUser',
+      component: () => import('@/views/ExternalUser.vue')
     },
     {
       path: '/about',

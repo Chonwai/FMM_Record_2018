@@ -2,7 +2,7 @@
   "projectList": [{
       "projectName": "homePage",
       "projectTitle": "首頁",
-      "iconPath": "static/images/newspaper.svg"
+      "iconPath": "static/images/house.svg"
     },
     {
       "projectName": "newRecord",
@@ -27,7 +27,7 @@
     {
       "projectName": "newAssets",
       "projectTitle": "新增設備資料",
-      "iconPath": "static/images/link.svg"
+      "iconPath": "static/images/trolley.svg"
     },
     {
       "projectName": "editAssets",

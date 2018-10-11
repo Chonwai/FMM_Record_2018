@@ -5,11 +5,10 @@
       <div class="close-btn" @click="closePanel()">&times;</div>
     </div>
     <div class="edit-panel">
-      <h1>修改內部用戶資料</h1>
+      <h1>修改外部用戶資料</h1>
       <input class="form-input" placeholder="用戶名稱：" v-model="editingUser.userName" title="用戶名稱"/>
-      <!-- <input class="form-input" placeholder="用戶編號：" v-model="editingUser.staffNumber" /> -->
-      <input class="form-input" placeholder="聯絡電話：" v-model="editingUser.userContact" title="聯絡電話"/>
-      <input class="form-input" placeholder="用戶電郵：" v-model="editingUser.userEmail" title="用戶電郵"/>
+      <input class="form-input" placeholder="用戶編號：" v-model="editingUser.staffNumber" />
+      <!-- <input class="form-input" placeholder="聯絡電話：" v-model="editingUser.userContact" title="聯絡電話"/> -->
       <input class="form-input" placeholder="用戶部門" v-model="editingUser.department" title="用戶部門"/>
       <input class="form-input" placeholder="用戶累計：" v-model="editingUser.sum" title="用戶累計"/>
       <div class="form-input submit-btn update-btn" @click="updateUser()">
@@ -18,7 +17,7 @@
     </div>
   </div>
   <div class="title">
-    <h1>內部用戶資料</h1>
+    <h1>外部用戶資料</h1>
   </div>
   <div class="all-fat-card-container">
     <div class="fat-card-item" v-for="user in users" :key="user.key">
@@ -27,7 +26,6 @@
           <h2>{{ user.userName }}</h2>
           <p>用戶編號：{{ user.staffNumber }}</p>
           <p>聯絡電話：{{ user.userContact }}</p>
-          <p>用戶電郵：{{ user.userEmail }}</p>
           <p>用戶累計：{{ user.sum }}</p>
         </div>
         <div class="fat-card-img-container">
@@ -46,16 +44,15 @@ export default {
     return {
       users: [],
       editingUser: [],
-      getAllInternalUserApi: "http://localhost:8888/index.php/api/internal_user",
-      updateInternalUserApi: "http://localhost:8888/index.php/api/internal_user"
+      getAllExternalUserApi: "http://localhost:8888/index.php/api/external_user",
+      updateExternalUserApi: "http://localhost:8888/index.php/api/external_user"
     }
   },
   methods: {
     getAllUser() {
-      this.$http.get(this.getAllInternalUserApi)
+      this.$http.get(this.getAllExternalUserApi)
         .then((response) => {
           this.users = response.data;
-          console.log("Get All!");
         })
     },
     editUser(user) {
@@ -67,7 +64,7 @@ export default {
       $(".edit-panel-container").hide();
     },
     updateUser() {
-      this.$http.put(this.updateInternalUserApi, JSON.stringify(this.editingUser))
+      this.$http.put(this.updateExternalUserApi, JSON.stringify(this.editingUser))
         .then((response) => {
           if (response.data.message == 1) {
             swal("修改成功！", {

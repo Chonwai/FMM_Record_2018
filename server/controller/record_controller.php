@@ -44,7 +44,7 @@ function addNewRecord($input)
     $mysql->query($sql);
 
     if ($mysql->query($sql) === true) {
-      
+
     }
 }
 

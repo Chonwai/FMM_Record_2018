@@ -66,6 +66,14 @@ textarea {
   resize: none;
 }
 
+p {
+  margin: 8px;
+}
+
+.title h1 {
+  margin: 0px;
+}
+
 #app {
   height: 100%;
   width: 100%;
@@ -109,10 +117,6 @@ textarea {
   border: 3px solid var(--turquoise);
 }
 
-.submit-btn {
-  cursor: pointer;
-}
-
 .item-form {
   min-width: 400px;
   width: 80%;
@@ -153,4 +157,135 @@ textarea {
 
 .swal-button {
   background-color: var(--turquoise);
+}
+
+/* Fat card style */
+
+.all-fat-card-container {
+  padding: 12px;
+}
+
+.fat-card-item {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  padding: 12px 24px 12px 24px;
+  color: var(--white);
+  background-color: var(--turquoise);
+  border-radius: var(--bigBorderRadius);
+}
+
+.fat-card-info {
+  display: flex;
+}
+
+.fat-card-text-container {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
+.fat-card-img-container {
+  display: flex;
+  flex: 1;
+  padding: 12px;
+  /* border: 3px solid var(--white); */
+  /* border-radius: var(--mediumBorderRadius); */
+}
+
+.fat-card-img-container>img {
+  height: 100%;
+  width: 100%;
+}
+
+.fat-card-edit-btn {
+  height: auto;
+  width: auto;
+  margin: 8px;
+  padding: 8px;
+  background-color: var(--transparent);
+  color: var(--white);
+  font-size: 16px;
+  border-radius: var(--mediumBorderRadius);
+  border: 3px solid white;
+  cursor: pointer;
+}
+
+.fat-card-edit-btn:hover {
+  animation-name: scale;
+  animation-duration: 1s;
+}
+
+/* Edit panel style */
+
+.edit-panel-container {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.edit-panel-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.close-btn-container {
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  z-index: 999;
+  color: var(--white);
+  font-size: 48px;
+  cursor: pointer;
+}
+
+.edit-panel {
+  height: 70vh;
+  width: 70vw;
+  overflow: scroll;
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: var(--bigBorderRadius);
+  border: 3px solid var(--turquoise);
+  padding: 24px;
+  animation: bigbang;
+  animation-duration: 0.5s;
+}
+
+.submit-btn {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: var(--turquoise);
+  color: white;
+  transition: 0.3s;
+}
+
+.update-btn {
+  height: auto;
+  margin: 8px;
+  padding: 8px;
+  background-color: var(--transparent);
+  color: var(--greensea);
+  font-size: 16px;
+  border-radius: var(--mediumBorderRadius);
+  border: 3px solid var(--turquoise);
+  cursor: pointer;
+}
+
+.update-btn p {
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
