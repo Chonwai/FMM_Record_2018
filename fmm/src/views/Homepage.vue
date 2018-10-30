@@ -26,50 +26,6 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (min-width: 1280px) {
-  .card {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 16.66%;
-    height: auto;
-    padding: 36px;
-    border: 3px solid var(--transparent);
-    border-radius: var(--bigBorderRadius);
-    transition: 0.3s;
-    transform: translateZ(0px);
-    text-decoration: none;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .card {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 25%;
-    height: auto;
-    padding: 36px;
-    border: 3px solid var(--transparent);
-    border-radius: var(--bigBorderRadius);
-    transition: 0.3s;
-    transform: translateZ(0px);
-    text-decoration: none;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .card {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 50%;
-    height: auto;
-    padding: 36px;
-    border: 3px solid var(--transparent);
-    border-radius: var(--bigBorderRadius);
-    transition: 0.3s;
-    transform: translateZ(0px);
-    text-decoration: none;
-  }
-}
 
 .homepage-container {
   min-height: calc(100vh - var(--footerHeight));

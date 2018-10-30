@@ -55,7 +55,6 @@ export default {
       this.$http.get(this.getAllInternalUserApi)
         .then((response) => {
           this.users = response.data;
-          console.log("Get All!");
         })
     },
     editUser(user) {

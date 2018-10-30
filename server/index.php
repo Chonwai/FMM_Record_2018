@@ -23,6 +23,13 @@ switch ($action) {
         editAssets($input);
     }
     break;
+  case 'api/records':
+    if ($method === "GET") {
+      getAllRecords();
+    } elseif ($method === "POST") {
+      getOneRecordItems($input);
+    }
+    break;
   case 'api/record/new':
       addNewRecord($input);
     break;

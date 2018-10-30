@@ -4,29 +4,38 @@
     <h1>新增表單</h1>
   </div>
   <div class="new-record-form-container">
-    <div class="form-input input-item-title">
+    <!-- <div class="form-input input-item-title">
       <label>表單編號：</label>
       <div class="input-embed-input-container">
         <span class="input-embed-input">FMM{{ recordNumber }}</span>
       </div>
+    </div> -->
+    <div class="form-input input-item-title">
+      <label>借出範圍：</label>
+      <div class="input-embed-input-container">
+        <label>內部：</label>
+        <input class="input-embed-input" type="radio" value="internal" v-model="in_ex" />
+        <label>外部：</label>
+        <input class="input-embed-input" type="radio" value="external" v-model="in_ex" />
+      </div>
     </div>
-    <input class="form-input" placeholder="領取人：" v-model="name"/>
+    <input class="form-input" placeholder="領取人：" v-model="name" />
     <div class="form-input input-item-title">
       <label>日期：</label>
       <div class="input-embed-input-container">
-        <input class="input-embed-input" type="date" v-model="date"/>
+        <input class="input-embed-input" type="date" v-model="date" />
       </div>
     </div>
-    <input class="form-input" placeholder="職員/學生證號碼：" v-model="staffNumber"/>
-    <input class="form-input" placeholder="部門：" v-model="department"/>
+    <input class="form-input" placeholder="職員/學生證號碼：" v-model="staffNumber" />
+    <input class="form-input" placeholder="部門：" v-model="department" />
     <!-- <input class="form-input" placeholder="預期歸還：" v-model="dateOfReturn"/> -->
     <div class="form-input input-item-title">
       <label>預期歸還：</label>
       <div class="input-embed-input-container">
-        <input class="input-embed-input" type="date" v-model="dateOfReturn"/>
+        <input class="input-embed-input" type="date" v-model="dateOfReturn" />
       </div>
     </div>
-    <input class="form-input" placeholder="電話：" v-model="contact"/>
+    <input class="form-input" placeholder="電話：" v-model="contact" />
     <div class="form-input input-item-title">
       <label>項目數量：</label>
       <div class="item-amount">
@@ -67,15 +76,6 @@
         <input class="input-embed-input" type="checkbox" v-model="isReturn"/>
       </div>
     </div>
-    <div class="form-input input-item-title">
-      <label>借出範圍：</label>
-      <div class="input-embed-input-container">
-        <label>內部：</label>
-        <input class="input-embed-input" type="radio" value="internal" v-model="in_ex"/>
-        <label>外部：</label>
-        <input class="input-embed-input" type="radio" value="external" v-model="in_ex"/>
-      </div>
-    </div>
     <button class="form-input submit-btn" @click="submit()">新增</button>
   </div>
 </div>
@@ -106,7 +106,8 @@ export default {
       receiver: "",
       receivedDate: "",
       isReturn: false,
-      in_ex: ""
+      in_ex: "",
+      inputDataFlag: 0
     }
   },
   methods: {
@@ -128,41 +129,92 @@ export default {
     findLastRecordNumber() {
       this.$http.get(this.getLastRecordNumberApi)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           this.recordNumber = response.data.recordNumber;
         })
     },
     submit() {
-      // console.log(this.name, this.date, this.staffNumber, this.assetsModel, this.assetsNo, this.useLoctaion, this.returnName, this.returnDate, this.isReturn);
-      this.$http.post(this.newRecordApi, JSON.stringify({
-        "name": this.name,
-        "date": this.date,
-        "staffNumber": this.staffNumber,
-        "department": this.department,
-        "dateOfReturn": this.dateOfReturn,
-        "contact": this.contact,
-        "itemAmount": this.itemAmount,
-        "assetsModel": this.assetsModel,
-        "assetsNo": this.assetsNo,
-        "useLoctaion": this.useLoctaion,
-        "returnName": this.returnName,
-        "returnDate": this.returnDate,
-        "remark": this.remark,
-        "deliveryPerson": this.deliveryPerson,
-        "deliveryDate": this.deliveryDate,
-        "receiver": this.receiver,
-        "receivedDate": this.receivedDate,
-        "isReturn": this.isReturn,
-        "in_ex": this.in_ex
-      }))
-      .then((response) => {
-        console.log(response.data);
-      })
+      this.checkInputData();
+      if (this.inputDataFlag == 1) {
+        this.$http.post(this.newRecordApi, JSON.stringify({
+            "name": this.name,
+            "date": this.date,
+            "staffNumber": this.staffNumber,
+            "department": this.department,
+            "dateOfReturn": this.dateOfReturn,
+            "contact": this.contact,
+            "itemAmount": this.itemAmount,
+            "assetsModel": this.assetsModel,
+            "assetsNo": this.assetsNo,
+            "useLoctaion": this.useLoctaion,
+            "returnName": this.returnName,
+            "returnDate": this.returnDate,
+            "remark": this.remark,
+            "deliveryPerson": this.deliveryPerson,
+            "deliveryDate": this.deliveryDate,
+            "receiver": this.receiver,
+            "receivedDate": this.receivedDate,
+            "isReturn": this.isReturn,
+            "in_ex": this.in_ex
+          }))
+          .then((response) => {
+            swal("新增成功！", {
+              icon: "success"
+            });
+            this.inputDataFlag = 0;
+            this.resetInput();
+          })
+      }
+    },
+    checkInputData() {
+      if (this.name == "") {
+        swal("領取人名稱未填入", {
+          icon: "error"
+        });
+      } else if (this.contact == "") {
+        swal("聯絡電話未填入", {
+          icon: "error"
+        });
+      } else if (this.assetsModel == "" || this.assetsNo == "") {
+        swal("借件資料未填入", {
+          icon: "error"
+        });
+      } else if (this.deliveryPerson == "") {
+        swal("交件人名稱未填入", {
+          icon: "error"
+        });
+      } else {
+        this.inputDataFlag = 1;
+      }
+    },
+    resetInput() {
+      this.recordNumber = 0,
+      this.name = "",
+      this.date = "",
+      this.staffNumber = "",
+      this.department = "",
+      this.dateOfReturn = "",
+      this.contact = "",
+      this.itemAmount = 0,
+      this.assetsModel = [],
+      this.assetsNo = [],
+      this.useLoctaion = [],
+      this.returnName = [],
+      this.returnDate = [],
+      this.remark = "",
+      this.deliveryPerson = "",
+      this.deliveryDate = "",
+      this.receiver = "",
+      this.receivedDate = "",
+      this.isReturn = false,
+      this.in_ex = "",
+      this.inputDataFlag = 0
     }
   },
   created() {
     this.itemAmount = 0;
     this.findLastRecordNumber();
+    swal("提提您~", "記得填寫「電話」及「職員/學生證號碼」等資料。", "info");
   }
 }
 </script>
