@@ -95,7 +95,7 @@ export default {
   width: auto;
   margin-left: var(--leftBar);
   padding: 36px;
-  background-image: url("../../static/images/paper2.png");
+  /* background-image: url("../../static/images/paper2.png"); */
   background-position: center;
   background-repeat: repeat;
   background-size: cover;

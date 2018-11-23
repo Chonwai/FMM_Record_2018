@@ -10,18 +10,13 @@
       "iconPath": "static/images/newspaper.svg"
     },
     {
-      "projectName": "updateRecord",
-      "projectTitle": "更新表單",
-      "iconPath": "static/images/document.svg"
-    },
-    {
       "projectName": "printForm",
       "projectTitle": "表單列印",
       "iconPath": "static/images/typewriter.svg"
     },
     {
       "projectName": "searchRecord",
-      "projectTitle": "查找記錄",
+      "projectTitle": "查找及更新記錄",
       "iconPath": "static/images/search.svg"
     },
     {

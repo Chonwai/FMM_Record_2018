@@ -27,7 +27,7 @@ switch ($action) {
     if ($method === "GET") {
       getAllRecords();
     } elseif ($method === "POST") {
-      getOneRecordItems($input);
+      getOneRecord($input);
     }
     break;
   case 'api/record/new':
@@ -35,6 +35,9 @@ switch ($action) {
     break;
   case 'api/record/last':
       findLastRecordNumber();
+    break;
+  case 'api/record/item':
+      getOneRecordItems($input);
     break;
   case 'api/internal_user':
       if ($method === "GET") {

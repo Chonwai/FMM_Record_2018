@@ -46,7 +46,7 @@ function addNewRecord($input)
     }
 
     if ($deliveryPerson != null || $deliveryDate != null) {
-        $sql = "INSERT INTO Check_In_Out_Record (FormID, deliveryPerson, deliveryDate, returnPerson, retrunDate, isReturn)
+        $sql = "INSERT INTO Check_In_Out_Record (FormID, deliveryPerson, deliveryDate, returnPerson, returnDate, isReturn)
               VALUES ((SELECT FormID FROM Transaction_Information ORDER BY FormID DESC LIMIT 1), '$deliveryPerson', '$deliveryDate', '$receiver', '$receivedDate', '$isReturn')";
         $mysql->query($sql);
     }
@@ -68,7 +68,7 @@ function getAllRecords()
     global $mysql;
 
     $sql = "SELECT * FROM Transaction_Information
-            INNER JOIN Check_In_Out_Record ON Transaction_Information.FormID = Check_In_Out_Record.FormID";
+            INNER JOIN Check_In_Out_Record ON Transaction_Information.FormID = Check_In_Out_Record.FormID ORDER BY Transaction_Information.FormID DESC";
 
     $result = $mysql->query($sql);
 
@@ -91,6 +91,29 @@ function getOneRecordItems($input)
     $formID = $input['formID'];
 
     $sql = "SELECT * FROM Item_Record WHERE FormID = '$formID'";
+
+    $result = $mysql->query($sql);
+
+    if ($result->num_rows > 0) {
+        $response = [];
+        while ($row = $result->fetch_assoc()) {
+            $response[] = $row;
+        }
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
+}
+
+function getOneRecord($input)
+{
+    global $mysql;
+
+    $formID = $input['formID'];
+
+    $sql = "SELECT * FROM Transaction_Information
+          INNER JOIN Check_In_Out_Record ON Transaction_Information.FormID = Check_In_Out_Record.FormID WHERE Transaction_Information.FormID = '$formID'";
 
     $result = $mysql->query($sql);
 

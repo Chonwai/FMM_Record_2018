@@ -15,7 +15,7 @@
       <div class="edit-panel-row">
         <div class="row-item">
           <p class="row-title">日期：</p>
-          <input class="form-input" placeholder="日期" v-model="editingRecord.date" />
+          <input class="form-input" placeholder="日期" type="date" v-model="editingRecord.date" />
         </div>
       </div>
       <div class="edit-panel-row">
@@ -33,7 +33,7 @@
       <div class="edit-panel-row">
         <div class="row-item">
           <p class="row-title">預期歸還：</p>
-          <input class="form-input" placeholder="預期歸還" v-model="editingRecord.dateOfReturn" />
+          <input class="form-input" placeholder="預期歸還" type="date" v-model="editingRecord.dateOfReturn" />
         </div>
       </div>
       <div class="edit-panel-row">
@@ -46,7 +46,7 @@
         <label class="item-title">項目：{{ item.item }}</label>
         <div class="row-item">
           <p class="row-title">器材名稱及型號：</p>
-          <input class="form-input" placeholder="器材名稱及型號" v-model="item.assetsModelt" />
+          <input class="form-input" placeholder="器材名稱及型號" v-model="item.assetsModel" />
         </div>
         <div class="row-item">
           <p class="row-title">器材財產編號：</p>
@@ -92,7 +92,7 @@
       <div class="edit-panel-row">
         <div class="row-item">
           <p class="row-title">收件日期：</p>
-          <input class="form-input" placeholder="收件日期" type="date" v-model="editingRecord.retrunDate" />
+          <input class="form-input" placeholder="收件日期" type="date" v-model="editingRecord.returnDate" />
         </div>
       </div>
       <div class="edit-panel-row">
@@ -101,13 +101,20 @@
           <input class="form-input" placeholder="已還" type="checkbox" v-model="editingRecord.isReturn" />
         </div>
       </div>
-      <div class="form-input submit-btn update-btn" @click="updateAsset()">
-        <p>更新</p>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <div class="submit-btn update-btn group" @click="updateAsset()">
+            <p>更新</p>
+          </div>
+          <router-link class="submit-btn update-btn group" :to="{ name: 'printForm', params : { FormID: editingRecord.FormID}}">
+            <p>列印</p>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
   <div class="title">
-    <h1>查找記錄</h1>
+    <h1>查找及更新記錄</h1>
   </div>
   <div class="all-fat-card-container">
     <div class="fat-card-item" v-for="record in records" :key="record.key">
@@ -136,7 +143,8 @@ export default {
       records: [],
       editingRecord: [],
       editingItems: [],
-      getRecordApi: "http://localhost:8888/index.php/api/records"
+      getRecordApi: "http://localhost:8888/index.php/api/records",
+      getOneRecordItemsApi: "http://localhost:8888/index.php/api/record/item"
     }
   },
   methods: {
@@ -147,11 +155,12 @@ export default {
         })
     },
     getOneRecordItems() {
-      this.$http.post(this.getRecordApi, JSON.stringify({
+      this.$http.post(this.getOneRecordItemsApi, JSON.stringify({
           "formID": this.editingRecord.FormID
         }))
         .then((response) => {
           this.editingItems = response.data;
+          console.log(response.data);
         })
     },
     editRecord(record) {
@@ -163,6 +172,18 @@ export default {
     closePanel() {
       $(".edit-panel-container").hide();
     },
+    updateAsset() {
+      console.log("update!");
+    },
+    printForm() {
+      this.$router.push({
+        path: 'printForm',
+        props: {
+          default: true,
+          "FormID": this.editingRecord.FormID
+        }
+      });
+    }
   },
   created() {
     this.getAllRecords();
