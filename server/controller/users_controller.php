@@ -34,6 +34,49 @@ function getAllExternalUser()
     }
 }
 
+function searchUserByContact($input)
+{
+  global $mysql;
+
+  $contact = $input['userContact'];
+
+  $sql = "SELECT * FROM External_User WHERE userContact='$contact'";
+  $result = $mysql->query($sql);
+
+  if ($result->num_rows > 0) {
+      $response = [];
+      while ($row = $result->fetch_assoc()) {
+          $response[] = $row;
+      }
+      echo json_encode($response);
+  }
+  else {
+    $response = array("message" => "0");
+    echo json_encode($response);
+  }
+}
+
+function searchUserByStaffNumber($input) {
+  global $mysql;
+
+  $staffNumber = $input['staffNumber'];
+
+  $sql = "SELECT * FROM Internal_User WHERE staffNumber='$staffNumber'";
+  $result = $mysql->query($sql);
+
+  if ($result->num_rows > 0) {
+      $response = [];
+      while ($row = $result->fetch_assoc()) {
+          $response[] = $row;
+      }
+      echo json_encode($response);
+  }
+  else {
+    $response = array("message" => "0");
+    echo json_encode($response);
+  }
+}
+
 function updateInternalUser($input)
 {
     global $mysql;

@@ -25,9 +25,11 @@ switch ($action) {
     break;
   case 'api/records':
     if ($method === "GET") {
-      getAllRecords();
+        getAllRecords();
     } elseif ($method === "POST") {
-      getOneRecord($input);
+        getOneRecord($input);
+    } elseif ($method === "PUT") {
+        updateRecord($input);
     }
     break;
   case 'api/record/new':
@@ -58,6 +60,16 @@ switch ($action) {
     break;
   case 'api/external_user/new':
       addNewExternalUser($input);
+    break;
+  case 'api/user/contact':
+    if ($method === "POST") {
+        searchUserByContact($input);
+    }
+    break;
+  case 'api/user/staffNumber':
+    if ($method === "POST") {
+        searchUserByStaffNumber($input);
+    }
     break;
   default:
     // code...

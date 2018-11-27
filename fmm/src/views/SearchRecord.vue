@@ -103,7 +103,7 @@
       </div>
       <div class="edit-panel-row">
         <div class="row-item">
-          <div class="submit-btn update-btn group" @click="updateAsset()">
+          <div class="submit-btn update-btn group" @click="updateRecord()">
             <p>更新</p>
           </div>
           <router-link class="submit-btn update-btn group" :to="{ name: 'printForm', params : { FormID: editingRecord.FormID}}">
@@ -144,7 +144,8 @@ export default {
       editingRecord: [],
       editingItems: [],
       getRecordApi: "http://localhost:8888/index.php/api/records",
-      getOneRecordItemsApi: "http://localhost:8888/index.php/api/record/item"
+      getOneRecordItemsApi: "http://localhost:8888/index.php/api/record/item",
+      updateRecordApi: "http://localhost:8888/index.php/api/records"
     }
   },
   methods: {
@@ -160,7 +161,6 @@ export default {
         }))
         .then((response) => {
           this.editingItems = response.data;
-          console.log(response.data);
         })
     },
     editRecord(record) {
@@ -172,8 +172,26 @@ export default {
     closePanel() {
       $(".edit-panel-container").hide();
     },
-    updateAsset() {
-      console.log("update!");
+    updateRecord() {
+      this.$http.put(this.updateRecordApi, JSON.stringify({
+        "editingRecord": this.editingRecord,
+        "editingItems": this.editingItems
+      }))
+        .then((response) => {
+          if (response.data.message == 1) {
+            swal("修改成功！", {
+              icon: "success",
+            });
+            $(".edit-panel-container").hide();
+            this.record = [];
+            this.getAllRecords();
+          }
+          else {
+            swal("修改失敗！", {
+              icon: "error"
+            });
+          }
+        })
     },
     printForm() {
       this.$router.push({

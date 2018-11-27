@@ -165,7 +165,7 @@ export default {
         }))
         .then((response) => {
           this.printFormRecord = response.data;
-          console.log(this.printFormRecord);
+          // console.log(this.printFormRecord);
           this.getOneRecordItems();
         })
     },
@@ -175,7 +175,7 @@ export default {
         }))
         .then((response) => {
           this.printFormItems = response.data;
-          console.log(this.printFormItems);
+          // console.log(this.printFormItems);
         })
     },
     inputFormID() {

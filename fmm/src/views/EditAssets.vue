@@ -43,7 +43,7 @@
           <p>財產地點：{{ asset.Location }}</p>
         </div>
         <div class="fat-card-img-container">
-          <img :src="'/static/images/assets/' + asset.Attachments" />
+          <img :src="'/static/images/assets/tools.svg'" />
         </div>
       </div>
       <button class="fat-card-edit-btn" @click="editAssets(asset)">修改</button>

@@ -319,9 +319,13 @@ p {
 }
 
 .input-embed-input {
-  border: none;
   font-size: 100%;
   color: inherit;
+  border: 3px solid var(--turquoise);
+  border-radius: var(--mediumBorderRadius);
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 6px;
 }
 
 .swal-modal {

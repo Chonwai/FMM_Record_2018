@@ -26,7 +26,14 @@
         <input class="input-embed-input" type="date" v-model="date" />
       </div>
     </div>
-    <input class="form-input" placeholder="職員/學生證號碼：" v-model="staffNumber" />
+    <!-- <input class="form-input" placeholder="職員/學生證號碼：" v-model="staffNumber" /> -->
+    <div class="form-input input-item-title">
+      <label>職員/學生證號碼：</label>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" placeholder="(Example: XXXX-X)" v-model="staffNumber" />
+        <button class="input-embed-input submit-btn" @click="searchByStaffNumber()">根據ID搜尋用戶資料</button>
+      </div>
+    </div>
     <input class="form-input" placeholder="部門：" v-model="department" />
     <!-- <input class="form-input" placeholder="預期歸還：" v-model="dateOfReturn"/> -->
     <div class="form-input input-item-title">
@@ -35,7 +42,13 @@
         <input class="input-embed-input" type="date" v-model="dateOfReturn" />
       </div>
     </div>
-    <input class="form-input" placeholder="電話：" v-model="contact" />
+    <div class="form-input input-item-title">
+      <label>電話：</label>
+      <div class="input-embed-input-container">
+        <input class="input-embed-input" placeholder="(Example: XXXX)" v-model="contact" />
+        <button class="input-embed-input submit-btn" @click="searchByPhone()">根據電話搜尋用戶資料</button>
+      </div>
+    </div>
     <div class="form-input input-item-title">
       <label>項目數量：</label>
       <div class="item-amount">
@@ -87,6 +100,8 @@ export default {
     return {
       newRecordApi: "http://localhost:8888/index.php/api/record/new",
       getLastRecordNumberApi: "http://localhost:8888/index.php/api/record/last",
+      searchUserByContactApi: "http://localhost:8888/index.php/api/user/contact",
+      searchUserByStaffNumberApi: "http://localhost:8888/index.php/api/user/staffNumber",
       recordNumber: 0,
       name: "",
       date: "",
@@ -107,7 +122,8 @@ export default {
       receivedDate: "",
       isReturn: false,
       in_ex: "",
-      inputDataFlag: 0
+      inputDataFlag: 0,
+      getUserData: ""
     }
   },
   methods: {
@@ -129,9 +145,62 @@ export default {
     findLastRecordNumber() {
       this.$http.get(this.getLastRecordNumberApi)
         .then((response) => {
-          // console.log(response.data);
           this.recordNumber = response.data.recordNumber;
         })
+    },
+    searchByPhone() {
+      if (this.contact != "") {
+        this.$http.post(this.searchUserByContactApi, JSON.stringify({
+          "userContact": this.contact
+        }))
+        .then((response) => {
+          if (response.data.message == 0) {
+            swal(":( 找不到用戶資料，請稍後新增用戶！", {
+              icon: "error"
+            });
+          } else {
+            swal("成功填入用戶信息！", {
+              icon: "success"
+            });
+            this.getUserData = response.data;
+            this.department = this.getUserData[0].department;
+            this.staffNumber = this.getUserData[0].staffNumber;
+            this.name = this.getUserData[0].userName;
+          }
+        })
+      } else {
+        swal("請填寫電話才能搜尋！", {
+          icon: "error"
+        });
+      }
+    },
+    searchByStaffNumber() {
+      console.log(this.staffNumber);
+      if (this.staffNumber != "") {
+        this.$http.post(this.searchUserByStaffNumberApi, JSON.stringify({
+          "staffNumber": this.staffNumber
+        }))
+        .then((response) => {
+          if (response.data.message == 0) {
+            swal(":( 找不到用戶資料，請稍後新增用戶！", {
+              icon: "error"
+            });
+          } else {
+            swal("成功填入用戶信息！", {
+              icon: "success"
+            });
+            this.getUserData = response.data;
+            this.department = this.getUserData[0].department;
+            this.staffNumber = this.getUserData[0].staffNumber;
+            this.name = this.getUserData[0].userName;
+            this.contact = this.getUserData[0].userContact;
+          }
+        })
+      } else {
+        swal("請填寫職員/學生證號碼才能搜尋！", {
+          icon: "error"
+        });
+      }
     },
     submit() {
       this.checkInputData();
@@ -161,6 +230,7 @@ export default {
             swal("新增成功！", {
               icon: "success"
             });
+            console.log(response.data);
             this.inputDataFlag = 0;
             this.resetInput();
           })

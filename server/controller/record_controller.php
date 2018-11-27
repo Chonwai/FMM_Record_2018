@@ -32,7 +32,7 @@ function addNewRecord($input)
     // Insert the Transaction Information
     if ($name != null || $staffNumber != null) {
         $sql = "INSERT INTO Transaction_Information (name, `date`, staffNumber, department, dateOfReturn, userContact, remark, status)
-              VALUES ('$name', '$date', '$staffNumber', '$department', '$dateOfReturn', '$contact', '$remark', '$in_ex')";
+                VALUES ('$name', '$date', '$staffNumber', '$department', '$dateOfReturn', '$contact', '$remark', '$in_ex')";
         $mysql->query($sql);
     }
 
@@ -40,14 +40,14 @@ function addNewRecord($input)
         $item = $i + 1;
         if ($assetsModel[$i] != null || $assetsNo[$i] != null) {
             $sql = "INSERT INTO Item_Record (FormID, item, assetsModel, assetsNo, useLoctaion, returnName, returnDate)
-                VALUES ((SELECT FormID FROM Transaction_Information ORDER BY FormID DESC LIMIT 1), '$item', '$assetsModel[$i]', '$assetsNo[$i]', '$useLoctaion[$i]', '$returnName[$i]', '$returnDate[$i]')";
+                    VALUES ((SELECT FormID FROM Transaction_Information ORDER BY FormID DESC LIMIT 1), '$item', '$assetsModel[$i]', '$assetsNo[$i]', '$useLoctaion[$i]', '$returnName[$i]', '$returnDate[$i]')";
             $mysql->query($sql);
         }
     }
 
     if ($deliveryPerson != null || $deliveryDate != null) {
         $sql = "INSERT INTO Check_In_Out_Record (FormID, deliveryPerson, deliveryDate, returnPerson, returnDate, isReturn)
-              VALUES ((SELECT FormID FROM Transaction_Information ORDER BY FormID DESC LIMIT 1), '$deliveryPerson', '$deliveryDate', '$receiver', '$receivedDate', '$isReturn')";
+                VALUES ((SELECT FormID FROM Transaction_Information ORDER BY FormID DESC LIMIT 1), '$deliveryPerson', '$deliveryDate', '$receiver', '$receivedDate', '$isReturn')";
         $mysql->query($sql);
     }
 
@@ -140,6 +140,68 @@ function findLastRecordNumber()
     if ($result->num_rows > 0) {
         $recordNumber = $row['FormID'] + 1;
         $response = array("recordNumber" => $recordNumber);
+        echo json_encode($response);
+    }
+}
+
+function updateRecord($input)
+{
+    global $mysql;
+
+    $formID = $input["editingRecord"]["FormID"];
+    $itemID = $input['ItemRecordID'];
+    $name = $input["editingRecord"]["name"];
+    $date = $input["editingRecord"]["date"];
+    $staffNumber = $input["editingRecord"]["staffNumber"];
+    $department = $input["editingRecord"]["department"];
+    $dateOfReturn = $input["editingRecord"]["dateOfReturn"];
+    $contact = $input["editingRecord"]["contact"];
+    $itemAmount = $input['itemAmount'];
+    $assetsModel = $input['assetsModel'];
+    $assetsNo = $input['assetsNo'];
+    $useLoctaion = $input['useLoctaion'];
+    $returnName = $input['returnName'];
+    $returnDate = $input['returnDate'];
+    $remark = $input["editingRecord"]["remark"];
+    $deliveryPerson = $input["editingRecord"]["deliveryPerson"];
+    $deliveryDate = $input["editingRecord"]["deliveryDate"];
+    $returnPerson = $input["editingRecord"]["returnPerson"];
+    $returnDate = $input["editingRecord"]["returnDate"];
+    $isReturn = $input["editingRecord"]["isReturn"];
+    $in_ex = $input["editingRecord"]["in_ex"];
+
+    $sql = "BEGIN";
+    $mysql->query($sql);
+
+    $sql = "UPDATE Transaction_Information SET name='$name', `date`='$date', staffNumber='$staffNumber', department='$department', dateOfReturn='$dateOfReturn', userContact='$contact', remark='$remark', status='$in_ex'
+            WHERE FormID='$formID'";
+    $mysql->query($sql);
+
+    for ($i = 0; $i < 3; $i++) {
+        // $item = $i + 1;
+        $assetsModel = $input["editingItems"][$i]["assetsModel"];
+        $assetsNo = $input["editingItems"][$i]["assetsNo"];
+        $useLoctaion = $input["editingItems"][$i]["useLoctaion"];
+        $returnName = $input["editingItems"][$i]["returnName"];
+        $returnDate = $input["editingItems"][$i]["returnDate"];
+        $ItemRecordID = $input["editingItems"][$i]["ItemRecordID"];
+        $sql = "UPDATE Item_Record SET assetsModel='$assetsModel', assetsNo='$assetsNo', useLoctaion='$useLoctaion', returnName='$returnName', returnDate='$returnDate'
+                WHERE ItemRecordID='$ItemRecordID'";
+        $mysql->query($sql);
+    }
+
+    $sql = "UPDATE Check_In_Out_Record SET deliveryPerson='$deliveryPerson', deliveryDate='$deliveryDate', returnPerson='$returnPerson', returnDate='$returnDate', isReturn='$isReturn'
+            WHERE FormID='$formID'";
+    $mysql->query($sql);
+
+    $sql = "COMMIT";
+    $mysql->query($sql);
+
+    if ($mysql->query($sql) === true) {
+        $response = array("message" => "1");
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
         echo json_encode($response);
     }
 }

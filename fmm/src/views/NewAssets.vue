@@ -7,7 +7,24 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
 
+    }
+  },
+  created() {
+    //do something after creating vue instance
+    swal("噢！此功能還在開發中～", {
+      icon: "info"
+    })
+    .then((value) => {
+      this.$router.push({
+        name: 'homePage'
+      })
+    });
+  }
+}
 </script>
 
 <style scoped>
