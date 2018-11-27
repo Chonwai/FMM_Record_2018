@@ -1,0 +1,20 @@
+{
+  "URL": "http://localhost:8888/fmm_record/index.php/",
+  "localURL": "http://localhost:8888/fmm_record/index.php/",
+  "serverURL": "https://localhost/fmm_record/index.php/",
+  "getRecordApi": "api/records",
+  "getOneRecordItemsApi": "api/record/item",
+  "updateRecordApi": "api/records",
+  "addNewInternalUserApi": "internal_user/new",
+  "addNewExternalUserApi": "external_user/new",
+  "getAllAssetsApi": "api/assets",
+  "updateAssetsApi": "api/assets",
+  "getAllExternalUserApi": "api/external_user",
+  "updateExternalUserApi": "api/external_user",
+  "getAllInternalUserApi": "api/internal_user",
+  "updateInternalUserApi": "api/internal_user",
+  "newRecordApi": "api/record/new",
+  "getLastRecordNumberApi": "api/record/last",
+  "searchUserByContactApi": "api/user/contact",
+  "searchUserByStaffNumberApi": "api/user/staffNumber"
+}

@@ -8,7 +8,7 @@ include_once "controller/users_controller.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Request-Methods: *");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: X-PINGOTHER, Content-Type");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
 $method = $_SERVER['REQUEST_METHOD'];

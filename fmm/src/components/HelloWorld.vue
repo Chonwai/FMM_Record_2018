@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>你好，僅供測試</h2>
+    <h2>Hello! Just for testing</h2>
     <ul>
       <li>
         <a

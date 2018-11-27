@@ -95,13 +95,14 @@
 </template>
 
 <script>
+import config from '../config.json';
 export default {
   data() {
     return {
-      newRecordApi: "http://localhost:8888/index.php/api/record/new",
-      getLastRecordNumberApi: "http://localhost:8888/index.php/api/record/last",
-      searchUserByContactApi: "http://localhost:8888/index.php/api/user/contact",
-      searchUserByStaffNumberApi: "http://localhost:8888/index.php/api/user/staffNumber",
+      newRecordApi: config.URL + config.newRecordApi,
+      getLastRecordNumberApi: config.URL + config.getLastRecordNumberApi,
+      searchUserByContactApi: config.URL + config.searchUserByContactApi,
+      searchUserByStaffNumberApi: config.URL + config.searchUserByStaffNumberApi,
       recordNumber: 0,
       name: "",
       date: "",

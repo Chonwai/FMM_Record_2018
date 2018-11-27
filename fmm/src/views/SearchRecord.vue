@@ -137,15 +137,16 @@
 </template>
 
 <script>
+import config from '../config.json';
 export default {
   data() {
     return {
       records: [],
       editingRecord: [],
       editingItems: [],
-      getRecordApi: "http://localhost:8888/index.php/api/records",
-      getOneRecordItemsApi: "http://localhost:8888/index.php/api/record/item",
-      updateRecordApi: "http://localhost:8888/index.php/api/records"
+      getRecordApi: config.URL + config.getRecordApi,
+      getOneRecordItemsApi: config.URL + config.getOneRecordItemsApi,
+      updateRecordApi: config.URL + config.updateRecordApi
     }
   },
   methods: {

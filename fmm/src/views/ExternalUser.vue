@@ -39,13 +39,14 @@
 </template>
 
 <script>
+import config from '../config.json';
 export default {
   data() {
     return {
       users: [],
       editingUser: [],
-      getAllExternalUserApi: "http://localhost:8888/index.php/api/external_user",
-      updateExternalUserApi: "http://localhost:8888/index.php/api/external_user"
+      getAllExternalUserApi: config.URL + config.getAllExternalUserApi,
+      updateExternalUserApi: config.URL + config.updateExternalUserApi
     }
   },
   methods: {

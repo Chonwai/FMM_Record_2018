@@ -41,13 +41,14 @@
 </template>
 
 <script>
+import config from '../config.json'
 export default {
   data() {
     return {
       users: [],
       editingUser: [],
-      getAllInternalUserApi: "http://localhost:8888/index.php/api/internal_user",
-      updateInternalUserApi: "http://localhost:8888/index.php/api/internal_user"
+      getAllInternalUserApi: config.URL + config.getAllInternalUserApi,
+      updateInternalUserApi: config.URL + config.updateInternalUserApi
     }
   },
   methods: {

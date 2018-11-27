@@ -53,13 +53,14 @@
 </template>
 
 <script>
+import config from '../config.json'
 export default {
   data() {
     return {
       assets: [],
       editingAsset: [],
-      getAllAssetsApi: "http://localhost:8888/index.php/api/assets",
-      updateAssetsApi: "http://localhost:8888/index.php/api/assets"
+      getAllAssetsApi: config.URL + config.getAllAssetsApi,
+      updateAssetsApi: config.URL + config.updateAssetsApi
     }
   },
   methods: {

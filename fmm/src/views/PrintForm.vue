@@ -147,6 +147,7 @@
 </template>
 
 <script>
+import config from '../config.json';
 export default {
   data() {
     return {
@@ -154,8 +155,8 @@ export default {
       flag: 0,
       printFormRecord: [],
       printFormItems: [],
-      getRecordApi: "http://localhost:8888/index.php/api/records",
-      getOneRecordItemsApi: "http://localhost:8888/index.php/api/record/item"
+      getRecordApi: config.URL + config.getRecordApi,
+      getOneRecordItemsApi: config.URL + config.getOneRecordItemsApi
     }
   },
   methods: {

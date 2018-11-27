@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import config from '../config.json';
 export default {
   data() {
     return {
@@ -35,8 +36,8 @@ export default {
       userName: null,
       externalUserDepartment: null,
       internalUserDepartment: null,
-      addNewInternalUserApi: "http://localhost:8888/index.php/api/internal_user/new",
-      addNewExternalUserApi: "http://localhost:8888/index.php/api/external_user/new"
+      addNewInternalUserApi: config.URL + config.addNewInternalUserApi,
+      addNewExternalUserApi: config.URL + config.addNewExternalUserApi
     }
   },
   methods: {
