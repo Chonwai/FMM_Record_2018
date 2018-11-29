@@ -230,6 +230,10 @@ export default {
   background-size: cover;
 }
 
+.title {
+  display: none;
+}
+
 .form-container {
   /* width: 210mm; */
   height: 285mm;

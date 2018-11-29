@@ -15,8 +15,8 @@
     </div>
     <input class="form-input" placeholder="用戶編號：" v-model="staffNumber" />
     <input class="form-input" placeholder="用戶名稱：" v-model="userName" />
-    <input class="form-input" placeholder="聯絡電話：" v-model="userContact" type="email" />
-    <input class="form-input" placeholder="用戶電郵：" v-model="userEmail" v-if="this.in_ex === 'internal'" />
+    <input class="form-input" placeholder="聯絡電話：" v-model="userContact" />
+    <input class="form-input" placeholder="用戶電郵：" v-model="userEmail" v-if="this.in_ex === 'internal'" type="email"/>
     <input class="form-input" placeholder="外部用戶部門：" v-model="externalUserDepartment" v-if="this.in_ex === 'external'" />
     <input class="form-input" placeholder="內部用戶部門：" v-model="internalUserDepartment" v-if="this.in_ex === 'internal'" />
     <button class="form-input submit-btn" @click="submit()">新增</button>
@@ -73,6 +73,7 @@ export default {
             "department": this.externalUserDepartment
           }))
           .then((response) => {
+            console.log(response.data);
             if (response.data.message == 1) {
               swal("新增成功！", {
                 icon: "success"

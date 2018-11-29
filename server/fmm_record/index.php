@@ -23,14 +23,15 @@ switch ($action) {
         editAssets($input);
     }
     break;
-  case 'api/records':
+  case 'api/record':
     if ($method === "GET") {
         getAllRecords();
     } elseif ($method === "POST") {
         getOneRecord($input);
-    } elseif ($method === "PUT") {
-        updateRecord($input);
     }
+    break;
+  case 'api/record/update':
+      updateRecord($input);
     break;
   case 'api/record/new':
       addNewRecord($input);
@@ -42,18 +43,16 @@ switch ($action) {
       getOneRecordItems($input);
     break;
   case 'api/internal_user':
-      if ($method === "GET") {
-          getAllInternalUser();
-      } elseif ($method === "PUT") {
-          updateInternalUser($input);
-      }
+      getAllInternalUser();
+    break;
+  case 'api/internal_user/update':
+        updateInternalUser($input);
     break;
   case 'api/external_user':
-      if ($method === "GET") {
-          getAllExternalUser();
-      } elseif ($method === "PUT") {
-          updateExternalUser($input);
-      }
+      getAllExternalUser();
+    break;
+  case 'api/external_user/update':
+      updateExternalUser($input);
     break;
   case 'api/internal_user/new':
       addNewInternalUser($input);

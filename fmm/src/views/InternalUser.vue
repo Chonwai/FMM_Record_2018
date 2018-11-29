@@ -67,7 +67,7 @@ export default {
       $(".edit-panel-container").hide();
     },
     updateUser() {
-      this.$http.put(this.updateInternalUserApi, JSON.stringify(this.editingUser))
+      this.$http.post(this.updateInternalUserApi, JSON.stringify(this.editingUser))
         .then((response) => {
           if (response.data.message == 1) {
             swal("修改成功！", {

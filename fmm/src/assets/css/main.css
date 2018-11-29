@@ -65,6 +65,10 @@
     display: none;
   }
 
+  h1 {
+    display: none;
+  }
+
   .title[data-v-d9dd859e] {
     display: none;
   }

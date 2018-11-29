@@ -45,7 +45,7 @@ function addNewRecord($input)
         }
     }
 
-    if ($deliveryPerson != null || $deliveryDate != null) {
+    if ($deliveryPerson != null) {
         $sql = "INSERT INTO Check_In_Out_Record (FormID, deliveryPerson, deliveryDate, returnPerson, returnDate, isReturn)
                 VALUES ((SELECT FormID FROM Transaction_Information ORDER BY FormID DESC LIMIT 1), '$deliveryPerson', '$deliveryDate', '$receiver', '$receivedDate', '$isReturn')";
         $mysql->query($sql);
@@ -155,7 +155,7 @@ function updateRecord($input)
     $staffNumber = $input["editingRecord"]["staffNumber"];
     $department = $input["editingRecord"]["department"];
     $dateOfReturn = $input["editingRecord"]["dateOfReturn"];
-    $contact = $input["editingRecord"]["contact"];
+    $contact = $input["editingRecord"]["userContact"];
     $itemAmount = $input['itemAmount'];
     $assetsModel = $input['assetsModel'];
     $assetsNo = $input['assetsNo'];
@@ -165,15 +165,16 @@ function updateRecord($input)
     $remark = $input["editingRecord"]["remark"];
     $deliveryPerson = $input["editingRecord"]["deliveryPerson"];
     $deliveryDate = $input["editingRecord"]["deliveryDate"];
-    $returnPerson = $input["editingRecord"]["returnPerson"];
-    $returnDate = $input["editingRecord"]["returnDate"];
+    $recordReturnPerson = $input["editingRecord"]["returnPerson"];
+    $recordReturnDate = $input["editingRecord"]["returnDate"];
     $isReturn = $input["editingRecord"]["isReturn"];
-    $in_ex = $input["editingRecord"]["in_ex"];
+    // $in_ex = $input["editingRecord"]["in_ex"];
+    //var_dump($input);
 
     $sql = "BEGIN";
     $mysql->query($sql);
 
-    $sql = "UPDATE Transaction_Information SET name='$name', `date`='$date', staffNumber='$staffNumber', department='$department', dateOfReturn='$dateOfReturn', userContact='$contact', remark='$remark', status='$in_ex'
+    $sql = "UPDATE Transaction_Information SET name='$name', `date`='$date', staffNumber='$staffNumber', department='$department', dateOfReturn='$dateOfReturn', userContact='$contact', remark='$remark'
             WHERE FormID='$formID'";
     $mysql->query($sql);
 
@@ -190,7 +191,7 @@ function updateRecord($input)
         $mysql->query($sql);
     }
 
-    $sql = "UPDATE Check_In_Out_Record SET deliveryPerson='$deliveryPerson', deliveryDate='$deliveryDate', returnPerson='$returnPerson', returnDate='$returnDate', isReturn='$isReturn'
+    $sql = "UPDATE Check_In_Out_Record SET deliveryPerson='$deliveryPerson', deliveryDate='$deliveryDate', returnPerson='$recordReturnPerson', returnDate='$recordReturnDate', isReturn='$isReturn'
             WHERE FormID='$formID'";
     $mysql->query($sql);
 

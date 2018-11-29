@@ -127,7 +127,7 @@
           <p>電話：{{ record.userContact }}</p>
         </div>
         <div class="fat-card-img-container">
-          <img :src="'/static/images/file.svg'" />
+          <img :src="'./static/images/file.svg'" />
         </div>
       </div>
       <button class="fat-card-edit-btn" @click="editRecord(record)">查看更多</button>
@@ -174,11 +174,13 @@ export default {
       $(".edit-panel-container").hide();
     },
     updateRecord() {
-      this.$http.put(this.updateRecordApi, JSON.stringify({
+      // console.log(this.editingRecord);
+      this.$http.post(this.updateRecordApi, JSON.stringify({
         "editingRecord": this.editingRecord,
         "editingItems": this.editingItems
       }))
         .then((response) => {
+          // console.log(response.data);
           if (response.data.message == 1) {
             swal("修改成功！", {
               icon: "success",

@@ -109,7 +109,7 @@ function updateExternalUser($input)
     $department = $input['department'];
     $sum = $input['sum'];
 
-    $sql = "UPDATE External_User SET userName='$userName', userContact='$userContact', department='$department', sum='$sum' WHERE staffNumber='$userContact'";
+    $sql = "UPDATE External_User SET userName='$userName', staffNumber='$staffNumber', userContact='$userContact', department='$department', sum='$sum' WHERE userContact='$userContact'";
 
     if ($mysql->query($sql) === true) {
         $response = array("message" => "1");
