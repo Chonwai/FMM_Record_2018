@@ -27,6 +27,9 @@ function editAssets($input)
 {
     global $mysql;
 
+    // var_dump($input);
+
+    $ID = $input['ID'];
     $Item = $input['Item'];
     $Description = $input['Description'];
     $Category = $input['Category'];
@@ -43,7 +46,8 @@ function editAssets($input)
     $Attachments = $input['Attachments'];
     $Retired_Date = $input['Retired_Date'];
 
-    $sql = "UPDATE Assets SET Item='$Item', Description='$Description', Category='$Category', State='$State', Acquired_Date='$Acquired_Date', Purchase_Price='$Purchase_Price', Current_Value='$Current_Value', Location='$Location', Manufacturer='$Manufacturer', Model='$Model', Comments='$Comments', Owner='$Owner', Retired_Date='$Retired_Date' WHERE ID_Number='$ID_Number'";
+    $sql = "UPDATE Assets SET Item='$Item', Description='$Description', Category='$Category', State='$State', Acquired_Date='$Acquired_Date', Purchase_Price='$Purchase_Price', Current_Value='$Current_Value', Location='$Location', Manufacturer='$Manufacturer', Model='$Model', Comments='$Comments',
+            Owner='$Owner', Retired_Date='$Retired_Date', ID_Number = '$ID_Number' WHERE ID='$ID'";
 
     if ($mysql->query($sql) === true) {
         $response = array("message" => "1");

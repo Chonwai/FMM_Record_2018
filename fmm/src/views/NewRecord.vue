@@ -104,27 +104,27 @@ export default {
       searchUserByContactApi: config.URL + config.searchUserByContactApi,
       searchUserByStaffNumberApi: config.URL + config.searchUserByStaffNumberApi,
       recordNumber: 0,
-      name: "",
-      date: "",
-      staffNumber: "",
-      department: "",
-      dateOfReturn: "",
-      contact: "",
+      name: null,
+      date: null,
+      staffNumber: null,
+      department: null,
+      dateOfReturn: null,
+      contact: null,
       itemAmount: 0,
       assetsModel: [],
       assetsNo: [],
       useLoctaion: [],
       returnName: [],
       returnDate: [],
-      remark: "",
-      deliveryPerson: "",
-      deliveryDate: "",
-      receiver: "",
-      receivedDate: "",
+      remark: null,
+      deliveryPerson: null,
+      deliveryDate: null,
+      receiver: null,
+      receivedDate: null,
       isReturn: false,
-      in_ex: "",
+      in_ex: null,
       inputDataFlag: 0,
-      getUserData: ""
+      getUserData: null
     }
   },
   methods: {
@@ -228,9 +228,15 @@ export default {
             "in_ex": this.in_ex
           }))
           .then((response) => {
-            swal("新增成功！", {
-              icon: "success"
-            });
+            if (response.data.message == 1) {
+              swal("新增成功！新表單編號為" + response.data.newFormID.FormID, {
+                icon: "success"
+              });
+            } else if (response.data.message == 0) {
+              swal("新增失敗，請填寫完整資料再試一次", {
+                icon: "error"
+              });
+            }
             console.log(response.data);
             this.inputDataFlag = 0;
             this.resetInput();
