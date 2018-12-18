@@ -32,8 +32,16 @@
   <div class="title">
     <h1>設備資料</h1>
   </div>
+  <!-- <div class="title">
+    <div class="edit-panel-row search-input">
+      <div class="row-item">
+        <p class="row-title">搜尋用戶：</p>
+        <input class="form-input" placeholder="請輸入搜尋條件" v-model="search" />
+      </div>
+    </div>
+  </div> -->
   <div class="all-fat-card-container">
-    <div class="fat-card-item" v-for="asset in assets" :key="asset.key">
+    <div class="fat-card-item" v-for="asset in assets" :key="asset.ID">
       <div class="fat-card-info">
         <div class="fat-card-text-container">
           <h2>{{ asset.Item }}</h2>
@@ -59,21 +67,33 @@ export default {
     return {
       assets: [],
       editingAsset: [],
+      search: "",
       getAllAssetsApi: config.URL + config.getAllAssetsApi,
       updateAssetsApi: config.URL + config.updateAssetsApi
+    }
+  },
+  computed: {
+    filteredAssest: function() {
+      console.log(this.assets);
+      console.log(this.search);
+      return this.assets.filter((asset) => {
+        console.log(asset);
+        return asset.Item.match(this.search);
+      })
     }
   },
   methods: {
     getAllAsset() {
       this.$http.get(this.getAllAssetsApi)
         .then((response) => {
-          this.assets = response.data
+          this.assets = response.data;
         })
     },
     editAssets(asset) {
       $(".edit-panel-container").css('display', 'flex');
       this.editingAsset = [];
       this.editingAsset = JSON.parse(JSON.stringify(asset));
+      // console.log(this.assets);
     },
     closePanel() {
       $(".edit-panel-container").hide();
@@ -115,5 +135,13 @@ export default {
   background-position: center;
   background-repeat: repeat;
   background-size: cover; */
+}
+
+.search-input:hover::after {
+  position: absolute;
+  left: calc(20% + 24px);
+  content: "根據領取人、日期、ID、電話或表單編號搜尋（不用輸入FMM）";
+  color: red;
+  font-size: 14px;
 }
 </style>

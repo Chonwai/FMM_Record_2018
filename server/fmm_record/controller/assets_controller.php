@@ -57,3 +57,36 @@ function editAssets($input)
         echo json_encode($response);
     }
 }
+
+function addNewAssets($input)
+{
+    global $mysql;
+
+    $Item = $input['Item'];
+    $ID_Number = $input['ID_Number'];
+    $Description = $input['Description'];
+    $Category = $input['Category'];
+    $State = $input['State'];
+    $Acquired_Date = $input['Acquired_Date'];
+    $Purchase_Price = $input['Purchase_Price'];
+    $Current_Value = $input['Current_Value'];
+    $Location = $input['Location'];
+    $Manufacturer = $input['Manufacturer'];
+    $Model = $input['Model'];
+    $Comments = $input['Comments'];
+    $Owner = $input['Owner'];
+    $Retired_Date = $input['Retired_Date'];
+
+    if ($Item != null && $ID_Number != null) {
+        $sql = "INSERT INTO assets(Item, Description, Category, State, Acquired_Date, Purchase_Price, Current_Value, Location, Manufacturer, Model, Comments, Owner, ID_Number, Retired_Date)
+            VALUES ('$Item', '$Description', '$Category', '$State', '$Acquired_Date', '$Purchase_Price', '$Current_Value', '$Location', '$Manufacturer', '$Model', '$Comments', '$Owner', '$ID_Number', '$Retired_Date')";
+
+        if ($mysql->query($sql) === true) {
+            $response = array("message" => "1");
+            echo json_encode($response);
+        } else {
+            $response = array("message" => "0");
+            echo json_encode($response);
+        }
+    }
+}

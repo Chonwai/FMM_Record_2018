@@ -9,6 +9,7 @@
   "addNewExternalUserApi": "api/external_user/new",
   "getAllAssetsApi": "api/assets",
   "updateAssetsApi": "api/assets",
+  "addNewAssetsApi": "api/assets/new",
   "getAllExternalUserApi": "api/external_user",
   "updateExternalUserApi": "api/external_user/update",
   "getAllInternalUserApi": "api/internal_user",

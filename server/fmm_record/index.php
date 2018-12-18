@@ -23,6 +23,9 @@ switch ($action) {
         editAssets($input);
     }
     break;
+  case 'api/assets/new':
+      addNewAssets($input);
+    break;
   case 'api/record':
     if ($method === "GET") {
         getAllRecords();

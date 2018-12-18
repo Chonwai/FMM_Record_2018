@@ -52,6 +52,7 @@ export default {
               "department": this.internalUserDepartment
             }))
             .then((response) => {
+              console.log(response.data);
               if (response.data.message == 1) {
                 swal("新增成功！", {
                   icon: "success"

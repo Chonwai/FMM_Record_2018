@@ -20,8 +20,16 @@
   <div class="title">
     <h1>內部用戶資料</h1>
   </div>
+  <div class="title">
+    <div class="edit-panel-row search-input">
+      <div class="row-item">
+        <p class="row-title">搜尋用戶：</p>
+        <input class="form-input" placeholder="請輸入搜尋條件" v-model="search" />
+      </div>
+    </div>
+  </div>
   <div class="all-fat-card-container">
-    <div class="fat-card-item" v-for="user in users" :key="user.key">
+    <div class="fat-card-item" v-for="user in filteredUser" :key="user.key">
       <div class="fat-card-info">
         <div class="fat-card-text-container">
           <h2>{{ user.userName }}</h2>
@@ -47,8 +55,16 @@ export default {
     return {
       users: [],
       editingUser: [],
+      search: "",
       getAllInternalUserApi: config.URL + config.getAllInternalUserApi,
       updateInternalUserApi: config.URL + config.updateInternalUserApi
+    }
+  },
+  computed: {
+    filteredUser: function() {
+      return this.users.filter((user) => {
+        return user.userName.match(this.search) || user.staffNumber.match(this.search) || user.userContact.match(this.search) || user.userEmail.match(this.search);
+      })
     }
   },
   methods: {
@@ -102,5 +118,13 @@ export default {
   background-position: center;
   background-repeat: repeat;
   background-size: cover;
+}
+
+.search-input:hover::after {
+  position: absolute;
+  left: calc(20% + 24px);
+  content: "根據用戶名稱、編號、聯絡電話或電郵搜尋";
+  color: red;
+  font-size: 14px;
 }
 </style>

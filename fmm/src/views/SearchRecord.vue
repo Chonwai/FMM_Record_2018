@@ -116,8 +116,16 @@
   <div class="title">
     <h1>查找及更新記錄</h1>
   </div>
+  <div class="title">
+    <div class="edit-panel-row search-input">
+      <div class="row-item">
+        <p class="row-title">搜尋表單：</p>
+        <input class="form-input" placeholder="請輸入搜尋條件" v-model="search" />
+      </div>
+    </div>
+  </div>
   <div class="all-fat-card-container">
-    <div class="fat-card-item" v-for="record in records" :key="record.key">
+    <div class="fat-card-item" v-for="record in filteredRecords" :key="record.key">
       <div class="fat-card-info">
         <div class="fat-card-text-container">
           <h2>FMM{{ record.FormID }}</h2>
@@ -146,7 +154,15 @@ export default {
       editingItems: [],
       getRecordApi: config.URL + config.getRecordApi,
       getOneRecordItemsApi: config.URL + config.getOneRecordItemsApi,
-      updateRecordApi: config.URL + config.updateRecordApi
+      updateRecordApi: config.URL + config.updateRecordApi,
+      search: ""
+    }
+  },
+  computed: {
+    filteredRecords: function() {
+      return this.records.filter((record) => {
+        return record.FormID.match(this.search) || record.name.match(this.search) || record.date.match(this.search) || record.staffNumber.match(this.search) || record.userContact.match(this.search);
+      })
     }
   },
   methods: {
@@ -176,9 +192,9 @@ export default {
     updateRecord() {
       // console.log(this.editingRecord);
       this.$http.post(this.updateRecordApi, JSON.stringify({
-        "editingRecord": this.editingRecord,
-        "editingItems": this.editingItems
-      }))
+          "editingRecord": this.editingRecord,
+          "editingItems": this.editingItems
+        }))
         .then((response) => {
           // console.log(response.data);
           if (response.data.message == 1) {
@@ -188,8 +204,7 @@ export default {
             $(".edit-panel-container").hide();
             this.record = [];
             this.getAllRecords();
-          }
-          else {
+          } else {
             swal("修改失敗！", {
               icon: "error"
             });
@@ -204,7 +219,7 @@ export default {
           "FormID": this.editingRecord.FormID
         }
       });
-    }
+    },
   },
   created() {
     this.getAllRecords();
@@ -231,5 +246,13 @@ h1 {
 
 .edit-panel {
   overflow: scroll;
+}
+
+.search-input:hover::after {
+  position: absolute;
+  left: calc(20% + 24px);
+  content: "根據領取人、日期、ID、電話或表單編號搜尋（不用輸入FMM）";
+  color: red;
+  font-size: 14px;
 }
 </style>
