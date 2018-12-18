@@ -90,3 +90,20 @@ function addNewAssets($input)
         }
     }
 }
+
+function deleteAssets($input)
+{
+    global $mysql;
+
+    $ID = $input['ID'];
+
+    $sql = "DELETE FROM `assets` WHERE ID = '$ID'";
+
+    if ($mysql->query($sql) === true) {
+        $response = array("message" => "1");
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
+}

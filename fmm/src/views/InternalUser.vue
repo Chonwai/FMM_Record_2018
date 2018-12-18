@@ -6,14 +6,51 @@
     </div>
     <div class="edit-panel">
       <h1>修改內部用戶資料</h1>
-      <input class="form-input" placeholder="用戶名稱：" v-model="editingUser.userName" title="用戶名稱"/>
-      <!-- <input class="form-input" placeholder="用戶編號：" v-model="editingUser.staffNumber" /> -->
-      <input class="form-input" placeholder="聯絡電話：" v-model="editingUser.userContact" title="聯絡電話"/>
-      <input class="form-input" placeholder="用戶電郵：" v-model="editingUser.userEmail" title="用戶電郵"/>
-      <input class="form-input" placeholder="用戶部門" v-model="editingUser.department" title="用戶部門"/>
-      <input class="form-input" placeholder="用戶累計：" v-model="editingUser.sum" title="用戶累計"/>
-      <div class="form-input submit-btn update-btn" @click="updateUser()">
-        <p>更新</p>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">用戶名稱：</p>
+          <input class="form-input" placeholder="用戶名稱" v-model="editingUser.userName" title="用戶名稱" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">用戶編號：</p>
+          <input class="form-input" placeholder="用戶編號" v-model="editingUser.staffNumber" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">用戶部門：</p>
+          <input class="form-input" placeholder="用戶部門" v-model="editingUser.department" title="用戶部門" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">用戶電郵：</p>
+          <input class="form-input" placeholder="用戶電郵" v-model="editingUser.userEmail" title="用戶電郵" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">聯絡電話</p>
+          <input class="form-input" placeholder="聯絡電話" v-model="editingUser.userContact" title="聯絡電話" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">用戶累計：</p>
+          <input class="form-input" placeholder="用戶累計" v-model="editingUser.sum" title="用戶累計" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <div class="submit-btn update-btn group" @click="updateUser()">
+            <p>更新</p>
+          </div>
+          <div class="submit-btn update-btn group" @click="deleteUser()">
+            <p>刪除</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -57,7 +94,8 @@ export default {
       editingUser: [],
       search: "",
       getAllInternalUserApi: config.URL + config.getAllInternalUserApi,
-      updateInternalUserApi: config.URL + config.updateInternalUserApi
+      updateInternalUserApi: config.URL + config.updateInternalUserApi,
+      deleteInternalUserApi: config.URL + config.deleteInternalUserApi
     }
   },
   computed: {
@@ -92,13 +130,42 @@ export default {
             $(".edit-panel-container").hide();
             this.users = [];
             this.getAllUser();
-          }
-          else {
+          } else {
             swal("修改失敗！", {
               icon: "error"
             });
           }
         })
+    },
+    deleteUser() {
+      swal({
+          title: "確定要刪除" + this.editingUser.userName + "嗎？",
+          text: "進行刪除操作後，該資料便不能再復原",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            this.$http.post(this.deleteInternalUserApi, JSON.stringify({"userID": this.editingUser.userID}))
+              .then((response) => {
+                if (response.data.message == 1) {
+                  swal("該資料已成功刪除！", {
+                    icon: "success",
+                  });
+                  $(".edit-panel-container").hide();
+                  this.users = [];
+                  this.getAllUser();
+                } else {
+                  swal("刪除失敗，請再試一次！", {
+                    icon: "error"
+                  });
+                }
+              })
+          } else {
+            swal("該資料沒有被刪除！");
+          }
+        });
     }
   },
   created() {

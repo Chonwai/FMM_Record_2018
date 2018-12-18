@@ -26,6 +26,9 @@ switch ($action) {
   case 'api/assets/new':
       addNewAssets($input);
     break;
+  case 'api/assets/delete':
+      deleteAssets($input);
+    break;
   case 'api/record':
     if ($method === "GET") {
         getAllRecords();
@@ -49,13 +52,19 @@ switch ($action) {
       getAllInternalUser();
     break;
   case 'api/internal_user/update':
-        updateInternalUser($input);
+      updateInternalUser($input);
+    break;
+  case 'api/internal_user/delete':
+      deleteInternalUser($input);
     break;
   case 'api/external_user':
       getAllExternalUser();
     break;
   case 'api/external_user/update':
       updateExternalUser($input);
+    break;
+  case 'api/external_user/delete':
+      deleteExternalUser($input);
     break;
   case 'api/internal_user/new':
       addNewInternalUser($input);

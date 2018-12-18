@@ -6,26 +6,99 @@
     </div>
     <div class="edit-panel">
       <h1>修改設備資料</h1>
-      <input class="form-input" placeholder="財產名稱：" v-model="editingAsset.Item" />
-      <input class="form-input" placeholder="財產編號：" v-model="editingAsset.ID_Number" />
-      <input class="form-input" placeholder="財產描述：" v-model="editingAsset.Description" />
-      <input class="form-input" placeholder="財產種類：" v-model="editingAsset.Category" />
-      <input class="form-input" placeholder="財產狀態：" v-model="editingAsset.State" />
-      <input class="form-input" placeholder="購買日期：" v-model="editingAsset.Acquired_Date" type="datetime" />
-      <input class="form-input" placeholder="購買價格：" v-model="editingAsset.Purchase_Price" />
-      <input class="form-input" placeholder="當前數量：" v-model="editingAsset.Current_Value" />
-      <input class="form-input" placeholder="財產地點：" v-model="editingAsset.Location" />
-      <input class="form-input" placeholder="生產廠商：" v-model="editingAsset.Manufacturer" />
-      <input class="form-input" placeholder="財產型號：" v-model="editingAsset.Model" />
-      <input class="form-input" placeholder="財產信息：" v-model="editingAsset.Comments" />
-      <input class="form-input" placeholder="Owner：" v-model="editingAsset.Owner" />
-      <!-- <div class="form-input input-item-title">
-        <label>退役日期：</label>
-        <input class="input-embed-input" type="date" v-model="editingAsset.Retired_Date" />
-      </div> -->
-      <input class="form-input" placeholder="退役日期：" v-model="editingAsset.Retired_Date" />
-      <div class="form-input submit-btn update-btn" @click="updateAsset()">
-        <p>更新</p>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產名稱：</p>
+          <input class="form-input" placeholder="財產名稱" v-model="editingAsset.Item" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產編號：</p>
+          <input class="form-input" placeholder="財產編號" v-model="editingAsset.ID_Number" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產描述：</p>
+          <input class="form-input" placeholder="財產描述" v-model="editingAsset.Description" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產種類：</p>
+          <input class="form-input" placeholder="財產種類" v-model="editingAsset.Category" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產狀態：</p>
+          <input class="form-input" placeholder="財產狀態" v-model="editingAsset.State" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">購買日期：</p>
+          <input class="form-input" placeholder="購買日期" v-model="editingAsset.Acquired_Date" type="date" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">購買價格：</p>
+          <input class="form-input" placeholder="購買價格" v-model="editingAsset.Purchase_Price" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">當前數量：</p>
+          <input class="form-input" placeholder="當前數量" v-model="editingAsset.Current_Value" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產地點：</p>
+          <input class="form-input" placeholder="財產地點" v-model="editingAsset.Location" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">生產廠商：</p>
+          <input class="form-input" placeholder="生產廠商" v-model="editingAsset.Manufacturer" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產型號：</p>
+          <input class="form-input" placeholder="財產型號" v-model="editingAsset.Model" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">財產信息：</p>
+          <input class="form-input" placeholder="財產信息" v-model="editingAsset.Comments" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">Owner：</p>
+          <input class="form-input" placeholder="Owner" v-model="editingAsset.Owner" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">退役日期：</p>
+          <input class="form-input" placeholder="退役日期" v-model="editingAsset.Retired_Date" type="date" />
+        </div>
+      </div>
+      <div class="edit-panel-row">
+        <div class="row-item">
+          <div class="submit-btn update-btn group" @click="updateAsset()">
+            <p>更新</p>
+          </div>
+          <div class="submit-btn update-btn group" @click="deleteAsset()">
+            <p>刪除</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -69,7 +142,8 @@ export default {
       editingAsset: [],
       search: "",
       getAllAssetsApi: config.URL + config.getAllAssetsApi,
-      updateAssetsApi: config.URL + config.updateAssetsApi
+      updateAssetsApi: config.URL + config.updateAssetsApi,
+      deleteAssetsApi: config.URL + config.deleteAssetsApi
     }
   },
   computed: {
@@ -116,6 +190,36 @@ export default {
             });
           }
         })
+    },
+    deleteAsset() {
+      swal({
+          title: "確定要刪除" + this.editingAsset.Item + "嗎？",
+          text: "進行刪除操作後，該資料便不能再復原",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            this.$http.post(this.deleteAssetsApi, JSON.stringify({"ID": this.editingAsset.ID}))
+              .then((response) => {
+                if (response.data.message == 1) {
+                  swal("該資料已成功刪除！", {
+                    icon: "success",
+                  });
+                  $(".edit-panel-container").hide();
+                  this.assets = [];
+                  this.getAllAsset();
+                } else {
+                  swal("刪除失敗，請再試一次！", {
+                    icon: "error"
+                  });
+                }
+              })
+          } else {
+            swal("該資料沒有被刪除！");
+          }
+        });
     }
   },
   created() {

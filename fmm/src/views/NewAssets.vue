@@ -122,6 +122,8 @@ export default {
   methods: {
     submit() {
       if (this.Item != null && this.ID_Number != null) {
+        this.Purchase_Price == null ? this.Purchase_Price = 0 : this.Purchase_Price = this.Purchase_Price;
+        this.Current_Value == null ? this.Current_Value = 1 : this.Current_Value = this.Current_Value;
         this.$http.post(this.addNewAssetsApi, JSON.stringify({
             "Item": this.Item,
             "ID_Number": this.ID_Number,
@@ -163,8 +165,8 @@ export default {
       this.Category = null;
       this.State = null;
       this.Acquired_Date = null;
-      this.Purchase_Price = null;
-      this.Current_Value = null;
+      this.Purchase_Price = 0;
+      this.Current_Value = 1;
       this.Location = null;
       this.Manufacturer = null;
       this.Model = null;

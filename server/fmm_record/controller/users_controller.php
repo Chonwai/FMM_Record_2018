@@ -36,45 +36,44 @@ function getAllExternalUser()
 
 function searchUserByContact($input)
 {
-  global $mysql;
+    global $mysql;
 
-  $contact = $input['userContact'];
+    $contact = $input['userContact'];
 
-  $sql = "SELECT * FROM External_User WHERE userContact='$contact'";
-  $result = $mysql->query($sql);
+    $sql = "SELECT * FROM External_User WHERE userContact='$contact'";
+    $result = $mysql->query($sql);
 
-  if ($result->num_rows > 0) {
-      $response = [];
-      while ($row = $result->fetch_assoc()) {
-          $response[] = $row;
-      }
-      echo json_encode($response);
-  }
-  else {
-    $response = array("message" => "0");
-    echo json_encode($response);
-  }
+    if ($result->num_rows > 0) {
+        $response = [];
+        while ($row = $result->fetch_assoc()) {
+            $response[] = $row;
+        }
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
 }
 
-function searchUserByStaffNumber($input) {
-  global $mysql;
+function searchUserByStaffNumber($input)
+{
+    global $mysql;
 
-  $staffNumber = $input['staffNumber'];
+    $staffNumber = $input['staffNumber'];
 
-  $sql = "SELECT * FROM Internal_User WHERE staffNumber='$staffNumber'";
-  $result = $mysql->query($sql);
+    $sql = "SELECT * FROM Internal_User WHERE staffNumber='$staffNumber'";
+    $result = $mysql->query($sql);
 
-  if ($result->num_rows > 0) {
-      $response = [];
-      while ($row = $result->fetch_assoc()) {
-          $response[] = $row;
-      }
-      echo json_encode($response);
-  }
-  else {
-    $response = array("message" => "0");
-    echo json_encode($response);
-  }
+    if ($result->num_rows > 0) {
+        $response = [];
+        while ($row = $result->fetch_assoc()) {
+            $response[] = $row;
+        }
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
 }
 
 function updateInternalUser($input)
@@ -87,8 +86,9 @@ function updateInternalUser($input)
     $sum = $input['sum'];
     $staffNumber = $input['staffNumber'];
     $department = $input['department'];
+    $userID = $input['userID'];
 
-    $sql = "UPDATE Internal_User SET userName='$userName', userContact='$userContact', userEmail='$userEmail', department='$department' WHERE staffNumber='$staffNumber'";
+    $sql = "UPDATE Internal_User SET userName='$userName', userContact='$userContact', userEmail='$userEmail', department='$department', staffNumber='$staffNumber' WHERE userID='$userID'";
 
     if ($mysql->query($sql) === true) {
         $response = array("message" => "1");
@@ -108,8 +108,9 @@ function updateExternalUser($input)
     $staffNumber = $input['staffNumber'];
     $department = $input['department'];
     $sum = $input['sum'];
+    $userID = $input['userID'];
 
-    $sql = "UPDATE External_User SET userName='$userName', staffNumber='$staffNumber', userContact='$userContact', department='$department', sum='$sum' WHERE userContact='$userContact'";
+    $sql = "UPDATE External_User SET userName='$userName', staffNumber='$staffNumber', userContact='$userContact', department='$department', sum='$sum' WHERE userID='$userID'";
 
     if ($mysql->query($sql) === true) {
         $response = array("message" => "1");
@@ -165,6 +166,40 @@ function addNewExternalUser($input)
             $response = array("message" => "0");
             echo json_encode($response);
         }
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
+}
+
+function deleteExternalUser($input)
+{
+    global $mysql;
+
+    $userID = $input['userID'];
+
+    $sql = "DELETE FROM external_user WHERE userID='$userID'";
+
+    if ($mysql->query($sql) === true) {
+        $response = array("message" => "1");
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
+}
+
+function deleteInternalUser($input)
+{
+    global $mysql;
+
+    $userID = $input['userID'];
+
+    $sql = "DELETE FROM `internal_user` WHERE userID = '$userID'";
+
+    if ($mysql->query($sql) === true) {
+        $response = array("message" => "1");
+        echo json_encode($response);
     } else {
         $response = array("message" => "0");
         echo json_encode($response);
