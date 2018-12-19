@@ -173,10 +173,8 @@ export default {
       $(".edit-panel-container").hide();
     },
     updateAsset() {
-      console.log(this.editingAsset);
       this.$http.post(this.updateAssetsApi, JSON.stringify(this.editingAsset))
         .then((response) => {
-          console.log(response.data);
           if (response.data.message == 1) {
             swal("修改成功！", {
               icon: "success",

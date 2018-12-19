@@ -14,7 +14,7 @@
       <label>借出範圍：</label>
       <div class="input-embed-input-container">
         <label>內部：</label>
-        <input class="input-embed-input" type="radio" value="internal" v-model="in_ex" />
+        <input class="input-embed-input" type="radio" value="internal" v-model="in_ex" selected />
         <label>外部：</label>
         <input class="input-embed-input" type="radio" value="external" v-model="in_ex" />
       </div>
@@ -122,7 +122,7 @@ export default {
       receiver: null,
       receivedDate: null,
       isReturn: false,
-      in_ex: null,
+      in_ex: "external",
       inputDataFlag: 0,
       getUserData: null
     }
@@ -152,23 +152,23 @@ export default {
     searchByPhone() {
       if (this.contact != "") {
         this.$http.post(this.searchUserByContactApi, JSON.stringify({
-          "userContact": this.contact
-        }))
-        .then((response) => {
-          if (response.data.message == 0) {
-            swal(":( 找不到用戶資料，請稍後新增用戶！", {
-              icon: "error"
-            });
-          } else {
-            swal("成功填入用戶信息！", {
-              icon: "success"
-            });
-            this.getUserData = response.data;
-            this.department = this.getUserData[0].department;
-            this.staffNumber = this.getUserData[0].staffNumber;
-            this.name = this.getUserData[0].userName;
-          }
-        })
+            "userContact": this.contact
+          }))
+          .then((response) => {
+            if (response.data.message == 0) {
+              swal(":( 找不到用戶資料，請稍後新增用戶！", {
+                icon: "error"
+              });
+            } else {
+              swal("成功填入用戶信息！", {
+                icon: "success"
+              });
+              this.getUserData = response.data;
+              this.department = this.getUserData[0].department;
+              this.staffNumber = this.getUserData[0].staffNumber;
+              this.name = this.getUserData[0].userName;
+            }
+          })
       } else {
         swal("請填寫電話才能搜尋！", {
           icon: "error"
@@ -179,24 +179,24 @@ export default {
       console.log(this.staffNumber);
       if (this.staffNumber != "") {
         this.$http.post(this.searchUserByStaffNumberApi, JSON.stringify({
-          "staffNumber": this.staffNumber
-        }))
-        .then((response) => {
-          if (response.data.message == 0) {
-            swal(":( 找不到用戶資料，請稍後新增用戶！", {
-              icon: "error"
-            });
-          } else {
-            swal("成功填入用戶信息！", {
-              icon: "success"
-            });
-            this.getUserData = response.data;
-            this.department = this.getUserData[0].department;
-            this.staffNumber = this.getUserData[0].staffNumber;
-            this.name = this.getUserData[0].userName;
-            this.contact = this.getUserData[0].userContact;
-          }
-        })
+            "staffNumber": this.staffNumber
+          }))
+          .then((response) => {
+            if (response.data.message == 0) {
+              swal(":( 找不到用戶資料，請稍後新增用戶！", {
+                icon: "error"
+              });
+            } else {
+              swal("成功填入用戶信息！", {
+                icon: "success"
+              });
+              this.getUserData = response.data;
+              this.department = this.getUserData[0].department;
+              this.staffNumber = this.getUserData[0].staffNumber;
+              this.name = this.getUserData[0].userName;
+              this.contact = this.getUserData[0].userContact;
+            }
+          })
       } else {
         swal("請填寫職員/學生證號碼才能搜尋！", {
           icon: "error"
@@ -244,11 +244,11 @@ export default {
       }
     },
     checkInputData() {
-      if (this.name == "") {
+      if (this.name == null) {
         swal("領取人名稱未填入", {
           icon: "error"
         });
-      } else if (this.contact == "") {
+      } else if (this.contact == null) {
         swal("聯絡電話未填入", {
           icon: "error"
         });
@@ -256,7 +256,7 @@ export default {
         swal("借件資料未填入", {
           icon: "error"
         });
-      } else if (this.deliveryPerson == "") {
+      } else if (this.deliveryPerson == null) {
         swal("交件人名稱未填入", {
           icon: "error"
         });
@@ -266,26 +266,25 @@ export default {
     },
     resetInput() {
       this.recordNumber = 0,
-      this.name = null,
-      this.date = null,
-      this.staffNumber = null,
-      this.department = null,
-      this.dateOfReturn = null,
-      this.contact = null,
-      this.itemAmount = 0,
-      this.assetsModel = [],
-      this.assetsNo = [],
-      this.useLoctaion = [],
-      this.returnName = [],
-      this.returnDate = [],
-      this.remark = null,
-      this.deliveryPerson = null,
-      this.deliveryDate = null,
-      this.receiver = null,
-      this.receivedDate = null,
-      this.isReturn = false,
-      this.in_ex = null,
-      this.inputDataFlag = 0
+        this.name = null,
+        this.date = null,
+        this.staffNumber = null,
+        this.department = null,
+        this.dateOfReturn = null,
+        this.contact = null,
+        this.itemAmount = 0,
+        this.assetsModel = [],
+        this.assetsNo = [],
+        this.useLoctaion = [],
+        this.returnName = [],
+        this.returnDate = [],
+        this.remark = null,
+        this.deliveryPerson = null,
+        this.deliveryDate = null,
+        this.receiver = null,
+        this.receivedDate = null,
+        this.isReturn = false,
+        this.inputDataFlag = 0
     }
   },
   created() {

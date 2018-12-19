@@ -27,18 +27,18 @@ function addNewRecord($input)
     $in_ex = $input['in_ex'];
     $tempFormID = 0;
 
-    if ($date == NULL) {
-      $date = "0000-00-00";
-    }
-    if ($dateOfReturn == NULL) {
-      $dateOfReturn = "0000-00-00";
-    }
-    if ($deliveryDate == NULL) {
-      $deliveryDate = "0000-00-00";
-    }
-    if ($receivedDate == NULL) {
-      $receivedDate = "0000-00-00";
-    }
+    // if ($date == NULL) {
+    //   $date = "0000-00-00";
+    // }
+    // if ($dateOfReturn == NULL) {
+    //   $dateOfReturn = "0000-00-00";
+    // }
+    // if ($deliveryDate == NULL) {
+    //   $deliveryDate = "0000-00-00";
+    // }
+    // if ($receivedDate == NULL) {
+    //   $receivedDate = "0000-00-00";
+    // }
 
     $sql = "BEGIN";
     $mysql->query($sql);

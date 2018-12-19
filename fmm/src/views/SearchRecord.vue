@@ -125,7 +125,7 @@
     </div>
   </div>
   <div class="all-fat-card-container">
-    <div class="fat-card-item" v-for="record in filteredRecords" :key="record.key">
+    <div class="fat-card-item" v-for="record in filteredRecords" :key="record.key" v-if="record.isReturn == true">
       <div class="fat-card-info">
         <div class="fat-card-text-container">
           <h2>FMM{{ record.FormID }}</h2>
@@ -133,6 +133,23 @@
           <p>日期：{{ record.date }}</p>
           <p>職員/學生證號碼：{{ record.staffNumber }}</p>
           <p>電話：{{ record.userContact }}</p>
+          <p>是否已還：是</p>
+        </div>
+        <div class="fat-card-img-container">
+          <img :src="'./static/images/file.svg'" />
+        </div>
+      </div>
+      <button class="fat-card-edit-btn" @click="editRecord(record)">查看更多</button>
+    </div>
+    <div v-else class="fat-card-item" style="background-color:deepskyblue">
+      <div class="fat-card-info">
+        <div class="fat-card-text-container">
+          <h2>FMM{{ record.FormID }}</h2>
+          <p>領取人：{{ record.name }}</p>
+          <p>日期：{{ record.date }}</p>
+          <p>職員/學生證號碼：{{ record.staffNumber }}</p>
+          <p>電話：{{ record.userContact }}</p>
+          <p>是否已還：否</p>
         </div>
         <div class="fat-card-img-container">
           <img :src="'./static/images/file.svg'" />
@@ -161,7 +178,7 @@ export default {
   computed: {
     filteredRecords: function() {
       return this.records.filter((record) => {
-        return record.FormID.match(this.search) || record.name.match(this.search) || record.date.match(this.search) || record.staffNumber.match(this.search) || record.userContact.match(this.search);
+        return record.FormID.match(this.search) || record.name.match(this.search) || record.staffNumber.match(this.search) || record.userContact.match(this.search);
       })
     }
   },
