@@ -65,6 +65,41 @@
           <input class="form-input" placeholder="還件日期" type="date" v-model="item.returnDate" />
         </div>
       </div>
+      <!-- <div class="edit-panel-row">
+        <div class="row-item">
+          <p class="row-title">項目數量：</p>
+          <div class="form-input">
+            <div class="item-amount">
+              <button class="form-item-button" @click="dropOne()">-</button>
+              <span class="show-amount">{{ newItemsAmount }}</span>
+              <button class="form-item-button" @click="addOne()">+</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="form-input edit-panel-row" v-for="item in newItemsAmount" :key="item.ItemRecordID">
+        <label class="item-title">項目：{{ item + editingItems.length }}</label>
+        <div class="row-item">
+          <p class="row-title">器材名稱及型號：</p>
+          <input class="form-input" placeholder="器材名稱及型號" v-model="newItems.assetsModel[item - 1]" />
+        </div>
+        <div class="row-item">
+          <p class="row-title">器材財產編號：</p>
+          <input class="form-input" placeholder="器材財產編號" v-model="newItems.assetsNo[item - 1]" />
+        </div>
+        <div class="row-item">
+          <p class="row-title">用途及使用地點：</p>
+          <input class="form-input" placeholder="用途及使用地點" v-model="newItems.useLoctaion[item - 1]" />
+        </div>
+        <div class="row-item">
+          <p class="row-title">還件人：</p>
+          <input class="form-input" placeholder="還件人" v-model="newItems.returnName[item - 1]" />
+        </div>
+        <div class="row-item">
+          <p class="row-title">還件日期：</p>
+          <input class="form-input" placeholder="還件日期" type="date" v-model="newItems.returnDate[item - 1]" />
+        </div>
+      </div>
       <div class="edit-panel-row">
         <div class="row-item">
           <p class="row-title">備註：</p>
@@ -169,6 +204,15 @@ export default {
       records: [],
       editingRecord: [],
       editingItems: [],
+      newItems: {
+        item: [],
+        assetsModel: [],
+        assetsNo: [],
+        useLoctaion: [],
+        returnName: [],
+        returnDate: []
+      },
+      newItemsAmount: 0,
       getRecordApi: config.URL + config.getRecordApi,
       getOneRecordItemsApi: config.URL + config.getOneRecordItemsApi,
       updateRecordApi: config.URL + config.updateRecordApi,
@@ -178,11 +222,26 @@ export default {
   computed: {
     filteredRecords: function() {
       return this.records.filter((record) => {
-        return record.FormID.match(this.search) || record.name.match(this.search) || record.staffNumber.match(this.search) || record.userContact.match(this.search);
+        return record.FormID.match(this.search) || record.name.match(this.search) || record.staffNumber.match(this.search) || record.userContact.match(this.search) || record.date.match(this.search);
       })
     }
   },
   methods: {
+    addOne() {
+      this.newItemsAmount += 1;
+      if (this.newItemsAmount + this.editingItems.length > 10) {
+        this.newItemsAmount = 10 - this.editingItems.length;
+        swal("最多只能填寫十項！", {
+          icon: "error"
+        });
+      }
+    },
+    dropOne() {
+      this.newItemsAmount -= 1;
+      if (this.newItemsAmount <= 0) {
+        this.newItemsAmount = 0;
+      }
+    },
     getAllRecords() {
       this.$http.get(this.getRecordApi)
         .then((response) => {
@@ -207,7 +266,7 @@ export default {
       $(".edit-panel-container").hide();
     },
     updateRecord() {
-      // console.log(this.editingRecord);
+      // console.log(this.newItems);
       this.$http.post(this.updateRecordApi, JSON.stringify({
           "editingRecord": this.editingRecord,
           "editingItems": this.editingItems

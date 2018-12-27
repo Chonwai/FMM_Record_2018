@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="form-input input-item-title">
-      <label>項目數量：</label>
+      <label>新加入項目數量：</label>
       <div class="item-amount">
         <button class="form-item-button" @click="dropOne()">-</button>
         <span class="show-amount">{{ itemAmount }}</span>
@@ -327,29 +327,6 @@ h1 {
 
 .item-title {
   display: block;
-}
-
-.item-amount {
-  height: 100%;
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.form-item-button {
-  font-size: 100%;
-  height: 100%;
-  width: 24px;
-  cursor: pointer;
-  border: none;
-  background-color: var(--turquoise);
-  color: var(--white);
-}
-
-.show-amount {
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .input-embed-input-container {

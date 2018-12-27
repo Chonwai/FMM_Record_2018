@@ -1,12 +1,12 @@
 * {
   box-sizing: border-box;
-  font-family: 'Bree Serif', serif;
+  font-family: 'Bree Serif', serif, 'Noto Sans TC', sans-serif;
   outline: none;
 }
 
 @font-face {
   font-family: 'Noto Sans TC', sans-serif;
-  unicode-range: U+3100-312F;
+  src: local("Heiti TC"), local("微軟正黑體"), local("Microsoft JhengHei"); unicode-range: U+4E00-9FFF;
 }
 
 @keyframes shakeOnce {
@@ -545,4 +545,27 @@ p {
 
 .group {
   flex: 1;
+}
+
+.item-amount {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.form-item-button {
+  font-size: 100%;
+  height: 100%;
+  width: 24px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--turquoise);
+  color: var(--white);
+}
+
+.show-amount {
+  padding-left: 12px;
+  padding-right: 12px;
 }
