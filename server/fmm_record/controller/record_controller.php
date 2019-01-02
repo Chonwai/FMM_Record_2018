@@ -102,6 +102,27 @@ function getAllRecords()
     }
 }
 
+function getAllInternalRecords()
+{
+    global $mysql;
+
+    $sql = "SELECT * FROM Transaction_Information
+          INNER JOIN Check_In_Out_Record ON Transaction_Information.FormID = Check_In_Out_Record.FormID WHERE Transaction_Information.status = 'internal' ORDER BY Transaction_Information.FormID DESC";
+
+    $result = $mysql->query($sql);
+
+    if ($result->num_rows > 0) {
+        $response = [];
+        while ($row = $result->fetch_assoc()) {
+            $response[] = $row;
+        }
+        echo json_encode($response);
+    } else {
+        $response = array("message" => "0");
+        echo json_encode($response);
+    }
+}
+
 function getOneRecordItems($input)
 {
     global $mysql;

@@ -36,6 +36,9 @@ switch ($action) {
         getOneRecord($input);
     }
     break;
+  case 'api/record/internal':
+      getAllInternalRecords();
+    break;
   case 'api/record/update':
       updateRecord($input);
     break;

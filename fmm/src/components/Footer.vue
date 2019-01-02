@@ -1,5 +1,5 @@
 <template>
-<footer id="footer">FMM 2018</footer>
+<footer id="footer">FMM 2019</footer>
 </template>
 
 <script>

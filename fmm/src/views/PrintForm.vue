@@ -60,13 +60,13 @@
       <div class="form-item data"></div>
       <div class="form-item">日期：<span class="eng">Date:</span></div>
       <div class="form-item data"></div>
-      <div class="form-item">職員/學生證號碼：<span class="eng">Date:</span></div>
+      <div class="form-item">職員/學生證號碼：<span class="eng">Staff Number:</span></div>
       <div class="form-item data"></div>
-      <div class="form-item">部門：<span class="eng">Date:</span></div>
+      <div class="form-item">部門：<span class="eng">Department:</span></div>
       <div class="form-item data"></div>
-      <div class="form-item">預期歸還：<span class="eng">Date:</span></div>
+      <div class="form-item">預期歸還：<span class="eng">Date of Return:</span></div>
       <div class="form-item data"></div>
-      <div class="form-item">電話：<span class="eng">Date:</span></div>
+      <div class="form-item">電話：<span class="eng">Contact:</span></div>
       <div class="form-item data"></div>
     </div>
     <div class="form-items-table-container" v-if="printFormItems[0]">
@@ -195,7 +195,6 @@ export default {
         .then((value) => {
           if (value > 0) {
             this.printFromID = Math.floor(value);
-            console.log(this.printFromID);
             this.getPrintRecord();
             swal({
               title: `成功找到FMM${this.printFromID}表單！`

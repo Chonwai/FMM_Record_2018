@@ -149,7 +149,7 @@
     </div>
   </div>
   <div class="title">
-    <h1>查找及更新外部記錄</h1>
+    <h1>查找及更新內部記錄</h1>
   </div>
   <div class="title">
     <div class="edit-panel-row search-input">
@@ -160,7 +160,7 @@
     </div>
   </div>
   <div class="all-fat-card-container">
-    <div class="fat-card-item" v-for="record in filteredRecords" :key="record.key" v-if="record.isReturn == true">
+    <div class="fat-card-item" v-for="record in records" :key="record.key" v-if="record.isReturn == true">
       <div class="fat-card-info">
         <div class="fat-card-text-container">
           <h2>FMM{{ record.FormID }}</h2>
@@ -213,7 +213,7 @@ export default {
         returnDate: []
       },
       newItemsAmount: 0,
-      getRecordApi: config.URL + config.getRecordApi,
+      getInternalRecordApi: config.URL + config.getInternalRecordApi,
       getOneRecordItemsApi: config.URL + config.getOneRecordItemsApi,
       updateRecordApi: config.URL + config.updateRecordApi,
       search: ""
@@ -243,7 +243,7 @@ export default {
       }
     },
     getAllRecords() {
-      this.$http.get(this.getRecordApi)
+      this.$http.get(this.getInternalRecordApi)
         .then((response) => {
           this.records = response.data;
         })
@@ -299,7 +299,7 @@ export default {
   },
   created() {
     this.getAllRecords();
-    swal("提提您~", "您可以在「查看更多」中修改表單", "info");
+    swal("提提您~", "您可以在「查看更多」中修改表單。", "info");
   }
 }
 </script>

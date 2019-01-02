@@ -3,6 +3,7 @@
   "localURL": "http://localhost:8888/fmm_record/index.php/",
   "serverURL": "https://10.114.31.4/fmm_record/index.php/",
   "getRecordApi": "api/record",
+  "getInternalRecordApi": "api/record/internal",
   "getOneRecordItemsApi": "api/record/item",
   "updateRecordApi": "api/record/update",
   "addNewInternalUserApi": "api/internal_user/new",
