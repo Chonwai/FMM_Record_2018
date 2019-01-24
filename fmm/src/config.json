@@ -1,6 +1,6 @@
 {
   "URL": "https://10.114.31.4/fmm_record/index.php/",
-  "localURL": "http://localhost:8888/fmm_record/index.php/",
+  "localURL": "https://10.114.31.4/fmm_record/index.php/",
   "serverURL": "https://10.114.31.4/fmm_record/index.php/",
   "getRecordApi": "api/record",
   "getInternalRecordApi": "api/record/internal",
