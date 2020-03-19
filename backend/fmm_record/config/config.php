@@ -1,5 +1,3 @@
 <?php
 
-$mysql = new mysqli('localhost', 'root', '1234', 'fmm_database');
-
- ?>
+$mysql = new mysqli('localhost', 'root', '', 'fmm_database');
